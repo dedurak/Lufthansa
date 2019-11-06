@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/lhSilver"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+    <View android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/divider_fragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="200dp"
+            android:textColorHint="@color/lhBlue6"
+            app:boxStrokeColor="@color/lhDeepBlue"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:hintTextColor="@color/lhDeepBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/flightSearchFlightNumber"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:background="@color/lhSilver"
+                android:fontFamily="@font/cabin_medium"
+                android:textCursorDrawable="@color/lhDeepBlue"
+                android:cursorVisible="true"
+                android:hint="@string/flight_number"
+                android:textColorHint="@color/lhDeepBlue"
+                android:inputType="number"
+                android:textAlignment="textStart"
+                android:textColor="@color/lhDeepBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="or"
+            android:textAlignment="center"
+            android:textColor="@color/lhDeepBlue"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColorHint="@color/lhBlue6"
+            app:boxStrokeColor="@color/lhDeepBlue"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:endIconDrawable="@drawable/ic_cancel_blue_24dp"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/lhDeepBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/flightSearchDeparture"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_margin="10dp"
+                android:background="@color/lhSilver"
+                android:textCursorDrawable="@color/lhDeepBlue"
+                android:fontFamily="@font/cabin_medium"
+                android:hint="@string/from"
+                android:inputType="text"
+                android:textAlignment="textStart"
+                android:textColor="@color/lhDeepBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColorHint="@color/lhBlue6"
+            app:boxStrokeColor="@color/lhDeepBlue"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:hintTextColor="@color/lhDeepBlue"
+            app:endIconDrawable="@drawable/ic_cancel_blue_24dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/flightSearchArrival"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_margin="10dp"
+                android:background="@color/lhSilver"
+                android:fontFamily="@font/cabin_medium"
+                android:textCursorDrawable="@color/lhDeepBlue"
+                android:hint="@string/to"
+                android:inputType="text"
+                android:textAlignment="textStart"
+                android:textColor="@color/lhDeepBlue" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:textColorHint="@color/lhBlue6"
+            app:boxStrokeColor="@color/lhDeepBlue"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:hintTextColor="@color/lhDeepBlue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/flightSearchDate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/lhSilver"
+                android:fontFamily="@font/cabin_medium"
+                android:textCursorDrawable="@color/lhDeepBlue"
+                android:hint="@string/select_date"
+                android:textAlignment="center"
+                android:textColor="@color/lhDeepBlue"
+                android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/buttoncalendar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/lhSilver"
+            android:src="@drawable/ic_cal"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+    <!--
+        <Button
+                android:layout_height="50dp"
+                android:layout_width="110dp"
+                android:layout_margin="10dp"
+                android:id="@+id/cancelButton"
+                android:text="@string/cancel"
+                android:textColor="@color/lhDeepBlue"
+                android:background="@drawable/flightsearchbutton"
+                android:fontFamily="@font/cabin_medium"
+                android:onClick="pressedOnCancelButton"
+                android:textSize="12sp"/>
+                -->
+    <Button
+            android:id="@+id/searchButton"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:background="@drawable/flightsearchbutton"
+            android:fontFamily="@font/cabin_medium"
+            android:gravity="center"
+            android:onClick="pressedOnSearchButton"
+            android:text="@string/search"
+            android:textAlignment="center"
+            android:textColor="@color/lhDeepBlue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toEndOf="@+id/buttoncalendar"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+            app:layout_constraintVertical_bias="0.218" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

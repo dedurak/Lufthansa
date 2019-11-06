@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="black">#000000</color>
+
+    <!-- Material Design Color Theme -->
+    <color name="primaryMaterialColor">#05154c</color>
+    <color name="primaryMaterialLightColor">#3a3b79</color>
+    <color name="primaryMaterialDarkColor">#000025</color>
+    <color name="secondaryMaterialColor">#F2F0F0F0</color>
+    <color name="secondaryMaterialLightColor">#ffffff</color>
+    <color name="secondaryMaterialDarkColor">#bebebe</color>
+    <color name="primaryMaterialTextColor">#f0f0f0</color>
+    <color name="secondaryMaterialTextColor">#314870</color>
+
+    <!--############################################-->
+
+    <!-- The Lufthansa Corlors for corporate design -->
+    <!-- ****************************************** -->
+    
+    <!-- main colors -->
+    <color name="lhDeepBlue">#05164D</color>
+    <color name="lhDeepBlueOpaque">#B305164D</color>
+    <color name="lhYellow">#FFAD00</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- grey colors -->
+    <color name="lhGray1">#d4d4d4</color>
+    <color name="lhGray2">#cccccc</color>
+    <color name="lhGray3">#b4b4b4</color>
+    <color name="lhGray4">#999999</color>
+    <color name="lhGray5">#878787</color>
+    <color name="lhGray6">#787878</color>
+    <color name="lhGray7">#666666</color>
+    <color name="lhGray8">#333333</color>
+    <color name="lhGray9">#282828</color>
+
+    <color name="lhSilver">#f0f0f0</color>
+
+    <!-- blue colors -->
+    <color name="lhBlue1">#03123f</color>
+    <color name="lhBlue2">#0d265b</color>
+    <color name="lhBlue3">#3a5382</color>
+    <color name="lhBlue4">#4d6995</color>
+    <color name="lhBlue5">#6e8bb7</color>
+    <color name="lhBlue6">#849ac2</color>
+
+    <!-- opaque colors -->
+    <color name="lhBlue1Opaque">#7303123f</color>
+
+    <!-- airportbg lh colors -->
+    <color name="lhYellowOpaquePressed">#F57C00</color>
+    <color name="lhYellowOpaque">#B3FFAD00</color>
+    <color name="lhSilverOpaque">#4D787878</color>
+
+    <!-- airportbg lh colors -->
+    <color name="osred">#E71C23</color>
+    <color name="osredOpaque">#B3E71C23</color>
+
+</resources>

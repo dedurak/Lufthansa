@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Lufthansa Flight Information</string>
+
+    <!-- Flight Status String -->
+    <string name="button_flight_status">Flight Status</string>
+    <string name="flight_number">Flugnummer</string>
+    <string name="from">Von</string>
+    <string name="to">Nach</string>
+    <string name="select_date">Date</string>
+    <string name="select_start_time">Start</string>
+    <string name="select_end_time">End</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="flight_search_wdw_title">Lufthansa Group</string>
+
+    <!-- Timetable Departure -->
+    <string name="departure_timetable">Departures</string>
+
+    <!-- Timetable Arrival -->
+    <string name="arrival_timetable">Arrivals</string>
+
+    <string-array name="carrier">
+        <item>LH</item>
+        <item>EW</item>
+        <item>OS</item>
+        <item>LX</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

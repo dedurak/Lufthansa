@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigater"
+        app:startDestination="@id/startPage">
+
+    <activity
+            android:id="@+id/startPage"
+            android:name="com.example.lufthansa.StartPage"
+            android:label="activity_start_page"
+            tools:layout="@layout/activity_start_page" />
+    <fragment
+            android:id="@+id/flightStatusSearchWdw"
+            android:name="com.example.lufthansa.FlightStatusSearchWdw"
+            android:label="fragment_flight_status_search_wdw"
+            tools:layout="@layout/fragment_flight_status_search_wdw" >
+        <action
+                android:id="@+id/action_flightStatusSearchWdw_to_flightInfo"
+                app:destination="@id/flightInfo" />
+    </fragment>
+    <fragment
+            android:id="@+id/arrivalSearchFragment"
+            android:name="com.example.lufthansa.MainFragments.Fragments.ArrivalSearchFragment"
+            android:label="arrival_search"
+            tools:layout="@layout/arrival_search" >
+        <action
+                android:id="@+id/action_arrivalSearchFragment_to_flightInfo"
+                app:destination="@id/flightInfo" />
+    </fragment>
+    <fragment
+            android:id="@+id/departureSearchFragment"
+            android:name="com.example.lufthansa.MainFragments.Fragments.DepartureSearchFragment"
+            android:label="departure_search"
+            tools:layout="@layout/departure_search" >
+        <action
+                android:id="@+id/action_departureSearchFragment_to_flightInfo"
+                app:destination="@id/flightInfo" />
+    </fragment>
+    <fragment
+            android:id="@+id/flightInfo"
+            android:name="com.example.lufthansa.FlightInfo"
+            android:label="fragment_flight_info"
+            tools:layout="@layout/fragment_flight_info" />
+</navigation>

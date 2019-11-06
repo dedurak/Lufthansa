@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/secondaryMaterialColor</item>
+        <item name="colorPrimaryDark">@color/secondaryMaterialDarkColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:buttonStyle">@drawable/primary_buttonshaper</item>
+        <item name="android:textColorHighlight">@color/lhBlue6</item>
+        <item name="toolbarStyle">@style/MyToolbar</item>
+
+        <item name="android:dialogTheme">@style/MyDialogTheme</item>
+        <item name="android:datePickerStyle">@style/MyDatePicker</item>
+        <item name="android:statusBarColor">@color/primaryMaterialDarkColor</item>
+    </style>
+
+    <style name="MyToolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:fontFamily">@font/cabin_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/primaryMaterialColor</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="android:Theme.Material.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePicker</item>
+    </style>
+
+    <style name="MyDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+        <item name="android:background">@color/lhSilver</item>
+    </style>
+
+    <style name="StartButtons" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/lhYellowOpaquePressed</item>
+        <item name="colorControlNormal">@color/lhYellowOpaque</item>
+    </style>
+
+</resources>

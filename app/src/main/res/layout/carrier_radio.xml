@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Operating Carrier"
+            android:textAlignment="center"
+            android:textColor="@color/lhDeepBlue"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_lufthansa"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/lh_logo"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/cabin_medium"
+                android:text="Lufthansa"
+                android:textColor="@color/lhDeepBlue"
+                android:textSize="18sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_eurowings"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/ew_logo_new"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/cabin_medium"
+                android:text="Eurowings"
+                android:textColor="@color/lhDeepBlue"
+                android:textSize="18sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_swiss"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/swiss_logo_new"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/cabin_medium"
+                android:text="Swiss"
+                android:textColor="@color/lhDeepBlue"
+                android:textSize="18sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_austrian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/os_logo_new"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/cabin_medium"
+                android:text="Austrian Airlines"
+                android:textColor="@color/lhDeepBlue"
+                android:textSize="18sp" />
+    </RadioGroup>
+
+    <Button
+            android:id="@+id/closeCarrierSelect"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/second_button"
+            android:fontFamily="@font/cabin_medium"
+            android:text="Cancel"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/lhSilver"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/selectButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+
+    <Button
+            android:id="@+id/selectButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/flightsearchbutton"
+            android:fontFamily="@font/cabin_medium"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="Select"
+            android:textColor="@color/lhDeepBlue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/closeCarrierSelect"
+            tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

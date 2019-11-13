@@ -1,6 +1,7 @@
 package com.example.lufthansa.MainFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.lufthansa.FlightStatusSearchWdw;
+import com.example.lufthansa.MainFragments.Fragments.FlightStatusFragment;
 import com.example.lufthansa.MainFragments.Fragments.ArrivalSearchFragment;
 import com.example.lufthansa.MainFragments.Fragments.DepartureSearchFragment;
-import com.example.lufthansa.MainFragments.Fragments.FlightSearchFragment;
 import com.example.lufthansa.R;
+import com.example.lufthansa.StartPage;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class FragmentCollection extends Fragment {
+
+    private final String TAG = FragmentCollection.class.getSimpleName();
 
     FragmentsAdapter adapter;
     ViewPager2 pager;
@@ -45,7 +49,7 @@ public class FragmentCollection extends Fragment {
     public void onViewCreated(View view, Bundle svdInstState) {
         adapter = new FragmentsAdapter(this);
 
-        adapter.addFragToList(new FlightStatusSearchWdw());
+        adapter.addFragToList(new FlightStatusFragment());
         adapter.addFragToList(new DepartureSearchFragment());
         adapter.addFragToList(new ArrivalSearchFragment());
 
@@ -95,6 +99,18 @@ public class FragmentCollection extends Fragment {
             return iconsSelected[position];
         else
             return iconsNons[position];
+    }
+
+    // do transaction to flight info center
+    public void navigateToFlightSearchResults(View view) {
+        Log.d(TAG, "try switching to new fragment");
+        Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightInfo);
+    }
+
+    // do transaction to flightnumber info fragment
+    public void navigateToFlightInfoResult(View view) {
+        Log.d(TAG, "transmitting to flight info fragment");
+        Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightNumberInfoFragment);
     }
 
 }

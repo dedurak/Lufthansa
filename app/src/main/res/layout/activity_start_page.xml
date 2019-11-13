@@ -10,20 +10,6 @@
         android:background="@color/lhSilver"
         tools:context=".StartPage">
 
-    <fragment
-            android:id="@+id/navHost"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/navigater" />
-
     <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/start_toolbar"
             style="@style/MyToolbar"
@@ -37,6 +23,7 @@
             app:navigationIcon="@drawable/lh_logo_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/lhSilver"
             app:title="@string/app_name" />
 
     <View
@@ -49,6 +36,23 @@
             app:layout_constraintTop_toBottomOf="@+id/start_toolbar" />
 
     <fragment
+            android:id="@+id/navigation_component"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="64dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/app_navigator" />
+
+    <!--
+
+    <fragment
             android:id="@+id/includer"
             android:name="com.example.lufthansa.MainFragments.FragmentCollection"
             android:layout_width="match_parent"
@@ -58,6 +62,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
-
-
+-->
 </androidx.constraintlayout.widget.ConstraintLayout>

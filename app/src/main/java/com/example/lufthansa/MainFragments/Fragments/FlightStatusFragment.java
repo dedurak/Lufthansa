@@ -1,22 +1,28 @@
-package com.example.lufthansa;
+package com.example.lufthansa.MainFragments.Fragments;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.example.lufthansa.APIObjects.Airlines.AirlineList;
 import com.example.lufthansa.APIObjects.Airports.AirportList;
+import com.example.lufthansa.APIObjects.ApiFlightResults;
 import com.example.lufthansa.APIObjects.Cities.CityList;
+import com.example.lufthansa.ApiService;
+import com.example.lufthansa.CarrierRadioDialog;
+import com.example.lufthansa.DataServices;
+import com.example.lufthansa.DatePickerFragment;
+import com.example.lufthansa.EventListener;
+import com.example.lufthansa.MainFragments.FragmentCollection;
+import com.example.lufthansa.MyAdapter;
+import com.example.lufthansa.R;
+import com.example.lufthansa.StartPage;
 import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -24,31 +30,39 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class FlightStatusSearchWdw extends Fragment implements AdapterView.OnItemSelectedListener{
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
+
+public class FlightStatusFragment extends Fragment {
 
     private String carrier;
     private EventListener listener;
-    private static final String TAG = FlightStatusSearchWdw.class.getSimpleName();
+    private static final String TAG = FlightStatusFragment.class.getSimpleName();
     private Calendar today = Calendar.getInstance();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private String date;
     private String[] hintAirportList;
-    static TextInputEditText ddate;
+    public static TextInputEditText ddate, selectedCarrier;
     EditText to, from, flightNumber;
-    Spinner selectCarrier;
+    TextInputEditText selectCarrier, carrierFlightNumber;
     private int typeOfRequest;
     String[] paramsForFlightSearch;
     View view;
 
-    private AppCompatImageButton flightSearchDate;
-
+    private AppCompatImageButton flightSearchDate, carrierSelect;
     private AppCompatAutoCompleteTextView autoCompleteDep, autoCompleteArr;
 
     String[] carriers = {"LH", "EW", "LX", "OS"};
@@ -72,9 +86,14 @@ public class FlightStatusSearchWdw extends Fragment implements AdapterView.OnIte
 
         view = inflater.inflate(R.layout.fragment_flight_status_search_wdw, container,false);
 
-        //Spinner spinner = view.findViewById(R.id.selectedCarrier);
+        /**
+
+         This part is not necessary until there is no spinner anymore
+
+        Spinner spinner = view.findViewById(R.id.selectedCarrier);
         MyAdapter adapter = new MyAdapter(getContext(), logos, carriers);
-        //spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);
+        **/
 
         autoCompleteDep = view.findViewById(R.id.flightSearchDeparture);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, hintAirportList);
@@ -146,19 +165,6 @@ public class FlightStatusSearchWdw extends Fragment implements AdapterView.OnIte
             }
         });
 
-        Button searchButton = view.findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String requestDate = formatDate(ddate.getText().toString());
-                String request = createRequest(carrier, flightNumber.getText().toString(), from.getText().toString(), to.getText().toString(), requestDate);
-                //fetch AccessTokenObject for req usage
-                String url = "https://api.lufthansa.com/v1/operations/flightstatus" + request;
-                Log.d(TAG, "URL: " + url);
-                sendDataToActivity(url);
-            }
-        });
-
         assignEditTextFields(view);
 
         return view;
@@ -172,6 +178,48 @@ public class FlightStatusSearchWdw extends Fragment implements AdapterView.OnIte
         ddate = view.findViewById(R.id.flightSearchDate);
         ddate.setText(date);
 
+        selectedCarrier = view.findViewById(R.id.flightCarrier);
+        carrierFlightNumber = view.findViewById(R.id.flightSearchFlightNumber);
+
+        // declare behavior for onClick on button
+        Button searchButton = view.findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Button is clicked");
+
+                /**
+                 * 1st check wether flight route or flight nummber is selected
+                 */
+                if((selectCarrier.getText().equals("") || carrierFlightNumber.getText().equals(""))
+                && (autoCompleteDep.getText().equals("") || autoCompleteArr.getText().equals("")))
+                    popupErrorMessage();
+                else {
+                    /**
+                     * evaluate if route or flightnumber - depending on we call flight info or status
+                     * 1 is for route - 0 for flight number
+                     **/
+                    if(carrierFlightNumber.getText().equals(""))
+                        startRouteSearch();
+                    else
+                        startNumberSearch();
+                }
+
+
+                /**    We set the code completely new
+                String requestDate = formatDate(ddate.getText().toString());
+                String request = createRequest(carrier, flightNumber.getText().toString(), from.getText().toString(), to.getText().toString(), requestDate);
+                //fetch AccessTokenObject for req usage
+                String url = "https://api.lufthansa.com/v1/operations/flightstatus" + request;
+                Log.d(TAG, "URL: " + url);
+                sendDataToActivity(url);
+                 **/
+            }
+        });
+
+
+        // behavior for date search button
         flightSearchDate = view.findViewById(R.id.buttoncalendar);
         flightSearchDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +229,16 @@ public class FlightStatusSearchWdw extends Fragment implements AdapterView.OnIte
                 dialog.show(getActivity().getSupportFragmentManager(), "datePicker");
             }
         });
+
+        carrierSelect = view.findViewById(R.id.buttoncarrier);
+        carrierSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CarrierRadioDialog dialog = new CarrierRadioDialog();
+                dialog.show(getActivity().getSupportFragmentManager(), "carrierPicker");
+            }
+        });
+
         flightNumber = view.findViewById(R.id.flightSearchFlightNumber);
         from =  view.findViewById(R.id.flightSearchDeparture);
         to =  view.findViewById(R.id.flightSearchArrival);
@@ -188,44 +246,7 @@ public class FlightStatusSearchWdw extends Fragment implements AdapterView.OnIte
 //        selectCarrier.setOnItemSelectedListener(this);
     }
 
-    /**
-     * sends the data back to the activity to send the request
-     * @param url
-     */
-    private void sendDataToActivity(String url) {
-        listener.receiveData(typeOfRequest, paramsForFlightSearch);
-    }
 
-    /**
-     *
-     * @param flightNumber - Flightnumber inserted
-     * @param from - departure airportTextInputEditText
-     * @param to - arrival airport
-     * @param date - the date of the flight searched
-     * @return - returns the end of request url
-     */
-    private String createRequest(String carrier, String flightNumber, String from, String to, String date) {
-        String request;
-        boolean checkVals = date.equals("") || ((from.equals("") || to.equals("")) && flightNumber.equals("") || carrier.equals(""));
-
-        if(checkVals)
-            return "";
-        else if(flightNumber.equals("")) {
-            typeOfRequest = 1;
-
-            String depCode = from.split(", ")[1];
-            String arrCode = to.split(", ")[1];
-
-            paramsForFlightSearch = new String[] {depCode, arrCode, date};
-
-            return "/route/" + depCode + "/" + arrCode + "/" + date;
-        }
-        else {
-            typeOfRequest = 0;
-            paramsForFlightSearch = new String[] {carrier + flightNumber, date};
-            return "/" + carrier + flightNumber + "/" + date;
-        }
-    }
 
     private String formatDate(String date2) {
         Log.d(TAG, "date is: " + date2);
@@ -256,26 +277,74 @@ public class FlightStatusSearchWdw extends Fragment implements AdapterView.OnIte
         }
     }
 
-    /**
-     * assign selected value to String param carrier
-     * @param parent
-     * @param view
-     * @param pos
-     * @param id
-     */
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        Object obj = parent.getItemAtPosition(pos);
-        carrier = obj.toString();
-        Log.d(TAG, "obj.toString(): " + carrier);
+
+    // if values dont match after pushed on Search Button
+    private void popupErrorMessage() {
+        Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * set what to do if nothing has been selected and the list is decollapsed
-     * @param parent
-     */
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        //do Nothing
+    // search for flight nummber
+    private void startNumberSearch() {
+        String carrier = AirlineList.getCode(selectCarrier.getText().toString());
+        String flightNo = carrier + carrierFlightNumber.getText();
+        String date = formatDate(ddate.getText().toString());
+        String token = "Bearer " + StartPage.access_token.getAccess_token();
+
+        String[] paramsForRetrofit = new String[] {flightNo, date, token};
+
+        doRetroFitFlightSearch(paramsForRetrofit);
+    }
+
+    private void doRetroFitFlightSearch(String[] params) {
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.lufthansa.com/v1/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        ApiService service = retrofit.create(ApiService.class);
+
+        Log.d(TAG, "FlightNumberParams Params 1: " +  params[0] + "\nParams2: " + params[1]);
+
+        Single<Response<ApiFlightResults>> retrofitFlight = service.getFlightByFlightNumber(
+                params[0], params[1], params[2]
+        );
+
+        retrofitFlight.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Response<ApiFlightResults>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSubscribe()");
+                    }
+
+                    @Override
+                    public void onSuccess(Response<ApiFlightResults> jsonObjectResponse) {
+                        Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSuccess");
+                        //JSONObject object = jsonObjectResponse.body();
+                        Log.d(TAG, "response body: " + jsonObjectResponse.body());
+                        Log.d(TAG, "response msg: " + jsonObjectResponse.raw());
+                        if(DataServices.extractFlight(jsonObjectResponse.body().getFlightStatusResource(), 1) == 1) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "retrofitFlightStatusByFlightNumber - onError");
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    // open flight search info
+    private void openFlightNumberFragment() {
+
+    }
+
+    // open search results
+    private void startRouteSearch() {
+        FragmentCollection parent = (FragmentCollection) FlightStatusFragment.this.getParentFragment();
+        parent.navigateToFlightSearchResults(getView());
     }
 }

@@ -8,6 +8,8 @@ import androidx.fragment.app.DialogFragment;
 import android.util.Log;
 import android.widget.DatePicker;
 
+import com.example.lufthansa.MainFragments.Fragments.FlightStatusFragment;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -15,7 +17,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     // referencese to the class the dialog is going to called from
     /**
-     * FS = FlightStatusSearchWdw
+     * FS = FlightStatusFragment
      * TTS = TimeTableStatusSearchWdw start
      * TTE = TimeTableStatusSearchWdw end
      */
@@ -44,7 +46,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         // assign the date to the calling textview
         if(caller.equals("FS"))
-            FlightStatusSearchWdw.ddate.setText(date);
+            FlightStatusFragment.ddate.setText(date);
         else if(caller.equals("TTS"))
             DeparturesSearchWdw.startDate.setText(date);
         else if(caller.equals("TTE"))

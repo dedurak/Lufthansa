@@ -62,7 +62,7 @@ public class StartPage extends FragmentActivity implements EventListener {
 
     /***
     public void onFlightSearch(View view) {
-        FlightStatusSearchWdw searchWdw = new FlightStatusSearchWdw();
+        FlightStatusFragment searchWdw = new FlightStatusFragment();
         searchWdw.show(getSupportFragmentManager(), TAG);
     }
 
@@ -72,11 +72,6 @@ public class StartPage extends FragmentActivity implements EventListener {
         wdw.show(getSupportFragmentManager(), TAG);
     }
      **/
-
-    // open arrival search window
-    public void onArrivalSearch(View view) {
-
-    }
 
     /* AsyncTask request
     *

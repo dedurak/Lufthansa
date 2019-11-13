@@ -15,18 +15,55 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/containingMySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/lhBlue6"
+            app:boxStrokeColor="@color/lhDeepBlue"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:hintTextColor="@color/lhDeepBlue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/flightCarrier"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:background="@color/lhSilver"
+                android:fontFamily="@font/cabin_medium"
+                android:hint="Carrier"
+                android:textAlignment="center"
+                android:textColor="@color/lhDeepBlue"
+                android:textCursorDrawable="@color/lhDeepBlue" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/buttoncarrier"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/lhSilver"
+            android:src="@drawable/search"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/containingMySpinner"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="200dp"
             android:textColorHint="@color/lhBlue6"
             app:boxStrokeColor="@color/lhDeepBlue"
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="3dp"
             app:hintTextColor="@color/lhDeepBlue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttoncarrier"
             app:layout_constraintTop_toBottomOf="@+id/view2">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -34,25 +71,25 @@
                 android:layout_width="120dp"
                 android:layout_height="60dp"
                 android:background="@color/lhSilver"
-                android:fontFamily="@font/cabin_medium"
-                android:textCursorDrawable="@color/lhDeepBlue"
                 android:cursorVisible="true"
+                android:fontFamily="@font/cabin_medium"
                 android:hint="@string/flight_number"
-                android:textColorHint="@color/lhDeepBlue"
                 android:inputType="number"
                 android:textAlignment="textStart"
-                android:textColor="@color/lhDeepBlue" />
+                android:textColor="@color/lhDeepBlue"
+                android:textColorHint="@color/lhDeepBlue"
+                android:textCursorDrawable="@color/lhDeepBlue" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="or"
             android:textAlignment="center"
             android:textColor="@color/lhDeepBlue"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -181,8 +218,8 @@
             android:background="@drawable/flightsearchbutton"
             android:fontFamily="@font/cabin_medium"
             android:gravity="center"
-            android:onClick="pressedOnSearchButton"
             android:text="@string/search"
+            android:onClick="onArrivalSearch"
             android:textAlignment="center"
             android:textColor="@color/lhDeepBlue"
             android:textSize="18sp"

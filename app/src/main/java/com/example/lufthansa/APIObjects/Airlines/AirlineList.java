@@ -40,6 +40,7 @@ public class AirlineList {
             new Airline("CX", "Cathay Pacific", R.drawable.cathay)
     };
 
+    // search and return the airline logo depending on airline shortcut
     public static Drawable getLogo(String code, Context context) {
         Drawable id = null;
 
@@ -49,5 +50,18 @@ public class AirlineList {
         }
 
         return id;
+    }
+
+    // search for airline shortcut with airline name
+    public static String getCode(String airlineName) {
+        int i = 0;
+        while (i<airlines.length) {
+            if (airlines[i].getAirlineName().equals(airlineName))
+                return airlines[i].getAirlineCode();
+
+            ++i;
+        }
+
+        return null;
     }
 }

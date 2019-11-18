@@ -52,15 +52,21 @@ public class DataServices {
         String flightNumber;
         String plannedDepTime, estDepTime;
         String plannedArrTime, estArrTime;
+        String plannedDepTimeUTC, estDepTimeUTC;
+        String plannedArrTimeUTC, estArrTimeUTC;
         String depGate, arrGate;
+        String depTerminal, arrTerminal;
         String depAirportCode, arrAirportCode;
         String airCraftName, airCraftRegistration;
-        String informationOfFlight, statusOfFlight;
+        String statusCode, statusOfFlight;
         Airport departure, arrival;
         String departureTimeStatus, arrivalTimeStatus;
+        String depStatCde, arrStatCode;
         try {
             JSONObject flightObject = (type == 1) ?
                     object.getJSONObject("Flights").getJSONObject("Flight") : object;
+
+            Log.d(TAG, "Departure?: " + flightObject.toString());
 
             depAirportCode = (String) flightObject.getJSONObject("Departure")
                     .get("AirportCode");
@@ -74,6 +80,9 @@ public class DataServices {
             plannedDepTime = getTime(flightObject.getJSONObject("Departure")
                     .getJSONObject("ScheduledTimeLocal")
                     .get("DateTime"));
+            plannedDepTimeUTC = getTime(flightObject.getJSONObject("Departure")
+                    .getJSONObject("ScheduledTimeUTC")
+                    .get("DateTime"));
             airCraftName = flightObject.getJSONObject("Equipment")
                     .get("AircraftCode").toString();
             if(flightObject.getJSONObject("Equipment").opt("AircraftRegistration") != null) {
@@ -81,8 +90,20 @@ public class DataServices {
                         .get("AircraftRegistration");
             } else
                 airCraftRegistration = "unknown";
+            statusCode = (String) flightObject.getJSONObject("FlightStatus")
+                    .get("Code");
             statusOfFlight = (String) flightObject.getJSONObject("FlightStatus")
                     .get("Definition");
+
+            depStatCde = (String) flightObject.getJSONObject("Departure")
+                    .getJSONObject("TimeStatus")
+                    .get("Code");
+            arrStatCode = (String) flightObject.getJSONObject("Arrival")
+                    .getJSONObject("TimeStatus")
+                    .get("Code");
+
+            Log.d(TAG, "arrstatcode: " + arrStatCode);
+
             departureTimeStatus = (String) flightObject.getJSONObject("Departure")
                     .getJSONObject("TimeStatus")
                     .get("Definition");
@@ -103,8 +124,24 @@ public class DataServices {
             else
                 estDepTime = plannedDepTime;
 
+            // now the same for the utc dep time
+            if(flightObject.getJSONObject("Departure").optJSONObject("EstimatedTimeUTC") != null)
+                estDepTimeUTC = getTime(flightObject.getJSONObject("Departure")
+                        .getJSONObject("EstimatedTimeUTC")
+                        .get("DateTime"));
+            else if(flightObject.getJSONObject("Departure").optJSONObject("ActualTimeUTC") != null)
+                estDepTimeUTC = getTime(flightObject.getJSONObject("Departure")
+                        .getJSONObject("ActualTimeUTC")
+                        .get("DateTime"));
+            else
+                estDepTimeUTC = plannedDepTimeUTC;
+
             plannedArrTime = getTime(flightObject.getJSONObject("Arrival")
                     .getJSONObject("ScheduledTimeLocal")
+                    .get("DateTime"));
+
+            plannedArrTimeUTC = getTime(flightObject.getJSONObject("Arrival")
+                    .getJSONObject("ScheduledTimeUTC")
                     .get("DateTime"));
 
             // extract estimated/planned time
@@ -117,24 +154,49 @@ public class DataServices {
                 estArrTime = getTime(flightObject.getJSONObject("Arrival")
                         .getJSONObject("ActualTimeLocal")
                         .get("DateTime"));
-
             else
                 estArrTime = plannedArrTime;
+
+
+            // the same for the utc time
+            if(flightObject.getJSONObject("Arrival").optJSONObject("EstimatedTimeUTC") != null)
+                estArrTimeUTC = getTime(flightObject.getJSONObject("Arrival")
+                        .getJSONObject("EstimatedTimeUTC")
+                        .get("DateTime"));
+
+            else if(flightObject.getJSONObject("Arrival").optJSONObject("ActualTimeUTC") != null)
+                estArrTimeUTC = getTime(flightObject.getJSONObject("Arrival")
+                        .getJSONObject("ActualTimeUTC")
+                        .get("DateTime"));
+            else
+                estArrTimeUTC = plannedArrTimeUTC;
+
+
 
             if(flightObject.getJSONObject("Departure").optJSONObject("Terminal") != null) {
                 depGate = flightObject.getJSONObject("Departure")
                         .getJSONObject("Terminal")
                         .optString("Gate", "unknown");
+                depTerminal = flightObject.getJSONObject("Departure")
+                        .getJSONObject("Terminal")
+                        .optString("Name", "unknown");
             }
-            else
+            else {
                 depGate = "unknown";
+                depTerminal = "unknown";
+            }
 
             if(flightObject.getJSONObject("Arrival").optJSONObject("Terminal") != null) {
                 arrGate = flightObject.getJSONObject("Arrival")
                         .getJSONObject("Terminal")
                         .optString("Gate", "unknown");
-            } else
+                arrTerminal = flightObject.getJSONObject("Arrival")
+                        .getJSONObject("Terminal")
+                        .optString("Name", "unknown");
+            } else {
                 arrGate = "unknown";
+                arrTerminal = "unknown";
+            }
 
             Log.d(TAG, "Airport Name: " + airportName);
 
@@ -146,8 +208,9 @@ public class DataServices {
 
             flight = new Flight(departure, arrival, operator, flightNumber,
                     plannedDepTime, estDepTime, plannedArrTime, estArrTime,
-                    depGate, arrGate, airCraftName, airCraftRegistration, statusOfFlight,
-                    departureTimeStatus, arrivalTimeStatus);
+                    plannedDepTimeUTC, estDepTimeUTC, plannedArrTimeUTC, estArrTimeUTC,
+                    depGate, arrGate, airCraftName, airCraftRegistration, statusOfFlight, statusCode,
+                    depStatCde, arrStatCode, departureTimeStatus, arrivalTimeStatus, depTerminal, arrTerminal);
 
             return 1;
 

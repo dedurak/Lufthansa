@@ -25,6 +25,8 @@
     <color name="lhDeepBlueOpaque">#B305164D</color>
     <color name="lhYellow">#FFAD00</color>
     <color name="white">#FFFFFF</color>
+    <color name="green">#5BC760</color>
+    <color name="red">#EF5350</color>
 
     <!-- grey colors -->
     <color name="lhGray">#F5EAEA</color>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
@@ -17,8 +18,11 @@ import com.example.lufthansa.MainFragments.Fragments.ArrivalSearchFragment;
 import com.example.lufthansa.MainFragments.Fragments.DepartureSearchFragment;
 import com.example.lufthansa.R;
 import com.example.lufthansa.StartPage;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import kotlin.OptionalExpectation;
 
 public class FragmentCollection extends Fragment {
 
@@ -110,7 +114,9 @@ public class FragmentCollection extends Fragment {
     // do transaction to flightnumber info fragment
     public void navigateToFlightInfoResult(View view) {
         Log.d(TAG, "transmitting to flight info fragment");
-        Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightNumberInfoFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("index", "no"); //are there more than 1 flight ?
+        Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightNumberInfoFragment, bundle);
     }
 
 }

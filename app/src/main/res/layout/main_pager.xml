@@ -12,7 +12,7 @@
             app:tabSelectedTextColor="@color/lhDeepBlue"
             app:tabTextColor="@color/lhBlue6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             style="@style/Widget.MaterialComponents.TabLayout"
             app:tabBackground="@color/lhGray1"
             app:tabIconTint="@color/lhDeepBlue"

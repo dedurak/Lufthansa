@@ -78,6 +78,7 @@ public class CountryList {
             new Country("US", "United States"),
             new Country("VE", "Venezuela"),
             new Country("VN", "Vietnam"),
+            new Country("XK", "Kosovo"),
             new Country("ZA", "South Africa")
     };
 }

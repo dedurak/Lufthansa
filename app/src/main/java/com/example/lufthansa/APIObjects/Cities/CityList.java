@@ -179,6 +179,7 @@ public class CityList {
             new City("PNA", "ES", "Pamplona"),
             new City("POZ", "PL", "Poznan"),
             new City("PRG", "CZ", "Prag"),
+            new City("PRN", "XK", "Pristina"),
             new City("PSA", "IT", "Pisa"),
             new City("PTY", "PA", "Panama"),
 

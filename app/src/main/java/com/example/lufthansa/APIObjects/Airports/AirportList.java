@@ -192,6 +192,7 @@ public class AirportList {
             new Airport("PNA", "PNA", "ES", "Pamplona-Noain Airport"),
             new Airport("POZ", "POZ", "PL", "Poznan-Lawica Airport"),
             new Airport("PRG", "PRG", "CZ", "Vaclav Havel Airport"),
+            new Airport("PRN", "PRN", "XK", "Adem Jashari Airport"),
             new Airport("PSA", "PSA", "IT", "Galileo Galilei Airport"),
             new Airport("PTY", "PTY", "PA", "Tocumen Panama International"),
             new Airport("PVG", "SHA", "CN", "Shanghai-Pudong"),
@@ -277,5 +278,18 @@ public class AirportList {
         }
 
         return null;
+    }
+
+    // return airport name according to airportCode
+    public static String getAirportName(String airportCode) {
+        int i = 0;
+        while(i<airports.length) {
+            if (airports[i].getAirportCode().equals(airportCode))
+                return airports[i].getName();
+
+            ++i;
+        }
+
+        return "";
     }
 }

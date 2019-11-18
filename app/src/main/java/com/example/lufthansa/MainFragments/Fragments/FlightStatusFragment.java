@@ -57,7 +57,7 @@ public class FlightStatusFragment extends Fragment {
     private String[] hintAirportList;
     public static TextInputEditText ddate, selectedCarrier;
     EditText to, from, flightNumber;
-    TextInputEditText selectCarrier, carrierFlightNumber;
+    TextInputEditText flightNoInpField;
     private int typeOfRequest;
     String[] paramsForFlightSearch;
     View view;
@@ -105,7 +105,7 @@ public class FlightStatusFragment extends Fragment {
         autoCompleteDep.setAdapter(arrayAdapter);
         autoCompleteArr.setAdapter(arrayAdapter);
 
-        TextInputEditText flightNoInpField = view.findViewById(R.id.flightSearchFlightNumber);
+        flightNoInpField = view.findViewById(R.id.flightSearchFlightNumber);
 
         // if not null dep and arr field are disabled
         flightNoInpField.addTextChangedListener(new TextWatcher() {
@@ -179,7 +179,6 @@ public class FlightStatusFragment extends Fragment {
         ddate.setText(date);
 
         selectedCarrier = view.findViewById(R.id.flightCarrier);
-        carrierFlightNumber = view.findViewById(R.id.flightSearchFlightNumber);
 
         // declare behavior for onClick on button
         Button searchButton = view.findViewById(R.id.searchButton);
@@ -192,15 +191,15 @@ public class FlightStatusFragment extends Fragment {
                 /**
                  * 1st check wether flight route or flight nummber is selected
                  */
-                if((selectCarrier.getText().equals("") || carrierFlightNumber.getText().equals(""))
-                && (autoCompleteDep.getText().equals("") || autoCompleteArr.getText().equals("")))
+                if((selectedCarrier.getText().toString().equals("") || flightNoInpField.getText().toString().equals(""))
+                && (autoCompleteDep.getText().toString().equals("") || autoCompleteArr.getText().toString().equals("")))
                     popupErrorMessage();
                 else {
                     /**
                      * evaluate if route or flightnumber - depending on we call flight info or status
                      * 1 is for route - 0 for flight number
                      **/
-                    if(carrierFlightNumber.getText().equals(""))
+                    if(flightNoInpField.getText().toString().equals(""))
                         startRouteSearch();
                     else
                         startNumberSearch();
@@ -283,10 +282,10 @@ public class FlightStatusFragment extends Fragment {
         Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
     }
 
-    // search for flight nummber
+    // search for flight number
     private void startNumberSearch() {
-        String carrier = AirlineList.getCode(selectCarrier.getText().toString());
-        String flightNo = carrier + carrierFlightNumber.getText();
+        String carrier = AirlineList.getCode(selectedCarrier.getText().toString());
+        String flightNo = carrier + flightNoInpField.getText().toString();
         String date = formatDate(ddate.getText().toString());
         String token = "Bearer " + StartPage.access_token.getAccess_token();
 
@@ -323,9 +322,13 @@ public class FlightStatusFragment extends Fragment {
                         Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSuccess");
                         //JSONObject object = jsonObjectResponse.body();
                         Log.d(TAG, "response body: " + jsonObjectResponse.body());
-                        Log.d(TAG, "response msg: " + jsonObjectResponse.raw());
-                        if(DataServices.extractFlight(jsonObjectResponse.body().getFlightStatusResource(), 1) == 1) {
-
+                        if(jsonObjectResponse.body() != null) {
+                            if (DataServices.extractFlight(jsonObjectResponse.body().getFlightStatusResource(), 1) == 1) {
+                                openFlightNumberFragment();
+                            }
+                        } else {
+                            Toast warningNoFlight = Toast.makeText(getContext(), "No Results!", Toast.LENGTH_LONG);
+                            warningNoFlight.show();
                         }
                     }
 
@@ -339,7 +342,8 @@ public class FlightStatusFragment extends Fragment {
 
     // open flight search info
     private void openFlightNumberFragment() {
-
+        FragmentCollection parent = (FragmentCollection) FlightStatusFragment.this.getParentFragment();
+        parent.navigateToFlightInfoResult(getView());
     }
 
     // open search results

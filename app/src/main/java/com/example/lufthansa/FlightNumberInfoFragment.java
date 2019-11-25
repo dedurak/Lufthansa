@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.example.lufthansa.APIObjects.Aircrafts.AircraftList;
 import com.example.lufthansa.APIObjects.Airlines.AirlineList;
@@ -22,15 +24,11 @@ import com.example.lufthansa.APIObjects.Flight;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-
-import kotlin.jvm.JvmOverloads;
 
 public class FlightNumberInfoFragment extends Fragment {
 
     Flight flight;
+    String from;
 
     private final String TAG = FlightNumberInfoFragment.class.getSimpleName();
 
@@ -39,10 +37,10 @@ public class FlightNumberInfoFragment extends Fragment {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
-        MaterialToolbar toolbar = (MaterialToolbar) getActivity().findViewById(R.id.start_toolbar);
+        MaterialToolbar toolbar = getActivity().findViewById(R.id.start_toolbar);
         toolbar.setVisibility(View.GONE);
 
-        View view = (View) getActivity().findViewById(R.id.view);
+        View view = getActivity().findViewById(R.id.view);
         view.setVisibility(View.GONE);
 
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -53,6 +51,7 @@ public class FlightNumberInfoFragment extends Fragment {
 
         Log.d(TAG,"inside onCreate");
         String index = getArguments().getString("index");
+        from = getArguments().getString("from");
 
         // look if there is an index. this is the activity has been invoked from overview result
         if(!index.equals(("no"))) {
@@ -67,6 +66,7 @@ public class FlightNumberInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         View view = inflater.inflate(R.layout.flight_info, container, false);
         Log.d(TAG,"inside onCreateView");
+
 
         /**
          * *      the following lines set the values of the layout
@@ -155,7 +155,6 @@ public class FlightNumberInfoFragment extends Fragment {
 
         depStatus.setText(stringRes[0]);
 
-
         if(arrStatCode.equals("FE")) {
             arrStatus.setTextColor(blue);
             arrStatus.setTypeface(Typeface.DEFAULT_BOLD);
@@ -217,7 +216,6 @@ public class FlightNumberInfoFragment extends Fragment {
         TextView airCraftReg = view.findViewById(R.id.registrationContent);
         airCraftReg.setText(flight.getAirCraftRegistration());
 
-
         return view;
     }
 
@@ -227,22 +225,24 @@ public class FlightNumberInfoFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        MaterialToolbar toolbar = (MaterialToolbar) getActivity().findViewById(R.id.start_toolbar);
-        toolbar.setVisibility(View.VISIBLE);
+        // do only if going back to main view
+        if(!from.equals("flightInfo")) {
+            MaterialToolbar toolbar = (MaterialToolbar) getActivity().findViewById(R.id.start_toolbar);
+            toolbar.setVisibility(View.VISIBLE);
 
-        View view = (View) getActivity().findViewById(R.id.view);
-        view.setVisibility(View.VISIBLE);
+            View view = (View) getActivity().findViewById(R.id.view);
+            view.setVisibility(View.VISIBLE);
 
-        float scale = getResources().getDisplayMetrics().density;
-        float dp = 60;
-        int pixel = (int) (dp * scale + 0.5f);
+            float scale = getResources().getDisplayMetrics().density;
+            float dp = 60;
+            int pixel = (int) (dp * scale + 0.5f);
 
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.setMargins(0, pixel, 0, 0);
+            ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            params.setMargins(0, pixel, 0, 0);
 
-        View fragment = getActivity().findViewById(R.id.navigation_component);
-        fragment.setLayoutParams(params);
-
+            View fragment = getActivity().findViewById(R.id.navigation_component);
+            fragment.setLayoutParams(params);
+        }
     }
 
     /**
@@ -328,4 +328,6 @@ public class FlightNumberInfoFragment extends Fragment {
 
         return "";
     }
+
+
 }

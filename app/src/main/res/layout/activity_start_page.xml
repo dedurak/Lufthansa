@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/primary_toolbar"
             android:elevation="4dp"
-            android:gravity="bottom"
+            android:gravity="center_horizontal"
             android:minHeight="?android:attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:navigationIcon="@drawable/lh_logo_white"

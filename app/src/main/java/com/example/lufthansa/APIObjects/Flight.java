@@ -1,9 +1,9 @@
 package com.example.lufthansa.APIObjects;
 
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -21,6 +21,7 @@ public class Flight {
     private String depTerminal, arrTerminal;
     private String flightNumber;
     private String departureTimeStatus, arrivalTimeStatus;
+    private Drawable operatorLogo;
 
     public Flight(Airport depAirport, Airport arrAirport,
                   String operator, String flightNumber,
@@ -33,7 +34,8 @@ public class Flight {
                   String statusOfFlight, String statusCode,
                   String departureStatusCode, String arrivalStatusCode,
                   String departureTimeStatus, String arrivalTimeStatus,
-                  String depTerminal, String arrTerminal) {
+                  String depTerminal, String arrTerminal,
+                  Drawable operatorLogo) {
         this.depAirport = depAirport;
         this.arrAirport = arrAirport;
         this.operator = operator;
@@ -58,6 +60,7 @@ public class Flight {
         this.arrivalTimeStatus = arrivalTimeStatus;
         this.depTerminal = depTerminal;
         this.arrTerminal = arrTerminal;
+        this.operatorLogo = operatorLogo;
     }
 
     /**
@@ -83,6 +86,7 @@ public class Flight {
     public String getOperator() { return operator; }
     public String getDepTerminal() { return depTerminal; }
     public String getArrTerminal() { return arrTerminal; }
+    public Drawable getLogo() { return operatorLogo; }
 
     // calculate and return planned flight duration
     public String getPlannedFlightDuration() {
@@ -94,6 +98,10 @@ public class Flight {
         return calculateDuration(estArrUTC, estDepUTC);
     }
 
+    /**
+     *
+     * @return - returns the remaining flight time
+     */
     public String getRemainingTime() {
 
         int hour=0, minute=0;
@@ -134,6 +142,12 @@ public class Flight {
 
     }
 
+    /**
+     * calculates the flight duration and returns it
+     * @param arrTime - arrival gmt time
+     * @param depTime - departure gmt time
+     * @return - return value is the flight duration as string in format hh:MM
+     */
     private String calculateDuration(String arrTime, String depTime) {
 
         Log.d(Flight.class.getSimpleName(), "arrTime: " + arrTime);
@@ -166,7 +180,7 @@ public class Flight {
         // 2nd case arr hour is smaller than dep hour (means that arrival is on next day, not unusual for long haul flights)
         else if(arrHour<depHour) {
             hour = Integer.toString((24 - depHour) + arrHour);
-
+            if(arrMin<depMin) hour = Integer.toString((24 - depHour) + (arrHour-1));
             // calc min the same way
             minute = Integer.toString(calcMin(arrMin, depMin));
         }

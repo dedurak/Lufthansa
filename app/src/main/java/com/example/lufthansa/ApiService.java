@@ -5,7 +5,6 @@ import com.example.lufthansa.APIObjects.ApiAirportResult;
 import com.example.lufthansa.APIObjects.ApiDepartures;
 import com.example.lufthansa.APIObjects.ApiFlightResults;
 import io.reactivex.Single;
-import org.json.JSONObject;
 import retrofit2.Response;
 import retrofit2.http.*;
 
@@ -26,16 +25,18 @@ public interface ApiService {
     @GET("operations/flightstatus/{flightNumber}/{date}")
     Single<Response<ApiFlightResults>> getFlightByFlightNumber(@Path("flightNumber") String flightNumber,
                                                                @Path("date") String date,
-                                                               @Header("Authorization") String authorization);
+                                                               @Header("Authorization") String authorization,
+                                                               @Header("Accept") String values);
 
     /*
     * api callback search for flight details by flight route
     * */
     @GET("operations/flightstatus/route/{origin}/{destination}/{date}")
     Single<Response<ApiFlightResults>> getFlightsByRoute(@Path("origin") String origin,
-                                                  @Path("destination") String destination,
-                                                  @Path("date") String date,
-                                                  @Header("Authorization") String authorization);
+                                                        @Path("destination") String destination,
+                                                        @Path("date") String date,
+                                                        @Header("Authorization") String authorization,
+                                                        @Header("Accept") String values);
 
     /*
     * fetch airport information belonging to airport code

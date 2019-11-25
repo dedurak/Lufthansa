@@ -106,9 +106,11 @@ public class FragmentCollection extends Fragment {
     }
 
     // do transaction to flight info center
-    public void navigateToFlightSearchResults(View view) {
+    public void navigateToFlightSearchResults(View view, String searchedDate) {
         Log.d(TAG, "try switching to new fragment");
-        Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightInfo);
+        Bundle bundle = new Bundle();
+        bundle.putString("date", searchedDate);
+        Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightInfo, bundle);
     }
 
     // do transaction to flightnumber info fragment
@@ -116,6 +118,7 @@ public class FragmentCollection extends Fragment {
         Log.d(TAG, "transmitting to flight info fragment");
         Bundle bundle = new Bundle();
         bundle.putString("index", "no"); //are there more than 1 flight ?
+        bundle.putString("from", "main");
         Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightNumberInfoFragment, bundle);
     }
 

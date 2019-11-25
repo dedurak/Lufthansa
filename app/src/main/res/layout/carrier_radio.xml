@@ -43,7 +43,7 @@
                 android:fontFamily="@font/cabin_medium"
                 android:text="Lufthansa"
                 android:textColor="@color/lhDeepBlue"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/radio_eurowings"

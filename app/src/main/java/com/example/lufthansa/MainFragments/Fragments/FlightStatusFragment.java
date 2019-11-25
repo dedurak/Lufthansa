@@ -16,7 +16,6 @@ import com.example.lufthansa.DataServices;
 import com.example.lufthansa.DatePickerFragment;
 import com.example.lufthansa.EventListener;
 import com.example.lufthansa.MainFragments.FragmentCollection;
-import com.example.lufthansa.MyAdapter;
 import com.example.lufthansa.R;
 import com.example.lufthansa.StartPage;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,6 +32,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -183,38 +184,35 @@ public class FlightStatusFragment extends Fragment {
         // declare behavior for onClick on button
         Button searchButton = view.findViewById(R.id.searchButton);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Button is clicked");
+        searchButton.setOnClickListener(v -> {
+            Log.d(TAG, "Button is clicked");
 
+            /**
+             * 1st check wether flight route or flight nummber is selected
+             */
+            if((selectedCarrier.getText().toString().equals("") || flightNoInpField.getText().toString().equals(""))
+            && (autoCompleteDep.getText().toString().equals("") || autoCompleteArr.getText().toString().equals("")))
+                popupErrorMessage();
+            else {
                 /**
-                 * 1st check wether flight route or flight nummber is selected
-                 */
-                if((selectedCarrier.getText().toString().equals("") || flightNoInpField.getText().toString().equals(""))
-                && (autoCompleteDep.getText().toString().equals("") || autoCompleteArr.getText().toString().equals("")))
-                    popupErrorMessage();
-                else {
-                    /**
-                     * evaluate if route or flightnumber - depending on we call flight info or status
-                     * 1 is for route - 0 for flight number
-                     **/
-                    if(flightNoInpField.getText().toString().equals(""))
-                        startRouteSearch();
-                    else
-                        startNumberSearch();
-                }
-
-
-                /**    We set the code completely new
-                String requestDate = formatDate(ddate.getText().toString());
-                String request = createRequest(carrier, flightNumber.getText().toString(), from.getText().toString(), to.getText().toString(), requestDate);
-                //fetch AccessTokenObject for req usage
-                String url = "https://api.lufthansa.com/v1/operations/flightstatus" + request;
-                Log.d(TAG, "URL: " + url);
-                sendDataToActivity(url);
+                 * evaluate if route or flightnumber - depending on we call flight info or status
+                 * 1 is for route - 0 for flight number
                  **/
+                if(flightNoInpField.getText().toString().equals(""))
+                    startRouteSearch();
+                else
+                    startNumberSearch();
             }
+
+
+            /**    We set the code completely new
+            String requestDate = formatDate(ddate.getText().toString());
+            String request = createRequest(carrier, flightNumber.getText().toString(), from.getText().toString(), to.getText().toString(), requestDate);
+            //fetch AccessTokenObject for req usage
+            String url = "https://api.lufthansa.com/v1/operations/flightstatus" + request;
+            Log.d(TAG, "URL: " + url);
+            sendDataToActivity(url);
+             **/
         });
 
 
@@ -230,12 +228,9 @@ public class FlightStatusFragment extends Fragment {
         });
 
         carrierSelect = view.findViewById(R.id.buttoncarrier);
-        carrierSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CarrierRadioDialog dialog = new CarrierRadioDialog();
-                dialog.show(getActivity().getSupportFragmentManager(), "carrierPicker");
-            }
+        carrierSelect.setOnClickListener(v -> {
+            CarrierRadioDialog dialog = new CarrierRadioDialog();
+            dialog.show(getActivity().getSupportFragmentManager(), "carrierPicker");
         });
 
         flightNumber = view.findViewById(R.id.flightSearchFlightNumber);
@@ -294,50 +289,126 @@ public class FlightStatusFragment extends Fragment {
         doRetroFitFlightSearch(paramsForRetrofit);
     }
 
+
+    /**
+     * receives the query parameter for route or number search and fetches the data
+     * @param params - search for flightnumber requires 3 params -> flightNo, date, token
+     *                 or search for route -> origin, destination, date, token
+     */
     private void doRetroFitFlightSearch(String[] params) {
+
+        Log.d(TAG, "Before retrofit build");
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.lufthansa.com/v1/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+
+        Log.d(TAG, "After build");
+
         ApiService service = retrofit.create(ApiService.class);
 
         Log.d(TAG, "FlightNumberParams Params 1: " +  params[0] + "\nParams2: " + params[1]);
 
-        Single<Response<ApiFlightResults>> retrofitFlight = service.getFlightByFlightNumber(
-                params[0], params[1], params[2]
-        );
+        Single<Response<ApiFlightResults>> retrofitFlight;
 
-        retrofitFlight.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Response<ApiFlightResults>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSubscribe()");
-                    }
+        if(params.length == 3) {
+            retrofitFlight = service.getFlightByFlightNumber(
+                    params[0], params[1], params[2], "application/json"
+            );
 
-                    @Override
-                    public void onSuccess(Response<ApiFlightResults> jsonObjectResponse) {
-                        Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSuccess");
-                        //JSONObject object = jsonObjectResponse.body();
-                        Log.d(TAG, "response body: " + jsonObjectResponse.body());
-                        if(jsonObjectResponse.body() != null) {
-                            if (DataServices.extractFlight(jsonObjectResponse.body().getFlightStatusResource(), 1) == 1) {
-                                openFlightNumberFragment();
-                            }
-                        } else {
-                            Toast warningNoFlight = Toast.makeText(getContext(), "No Results!", Toast.LENGTH_LONG);
-                            warningNoFlight.show();
+
+            retrofitFlight.subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<Response<ApiFlightResults>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSubscribe()");
                         }
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "retrofitFlightStatusByFlightNumber - onError");
-                        e.printStackTrace();
-                    }
-                });
+                        @Override
+                        public void onSuccess(Response<ApiFlightResults> apiFlightResultsResponse) {
+                            Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSuccess");
+                            //JSONObject object = jsonObjectResponse.body();
+                            Log.d(TAG, "response body: " + apiFlightResultsResponse.body());
+                            Log.d(TAG, "response resp code: " + apiFlightResultsResponse.code());
+                            Log.d(TAG, "response header: " + apiFlightResultsResponse.headers());
+                            Log.d(TAG, "raw response: " + apiFlightResultsResponse.raw());
+                            if (!apiFlightResultsResponse.isSuccessful()) {
+                                try {
+                                    String resp = apiFlightResultsResponse.errorBody().string();
+                                    Log.d(TAG, "errorBody: " + resp);
+                                    Log.d(TAG, "Response: " + apiFlightResultsResponse.raw().networkResponse().toString());
+                                } catch (IOException exc) {
+                                    exc.printStackTrace();
+                                }
+                            }
+                            if (apiFlightResultsResponse.body() != null) {
+                                if (DataServices.extractFlight(apiFlightResultsResponse.body().getFlightStatusResource(), 1, getContext()) == 1) {
+                                    openFlightNumberFragment();
+                                }
+                            } else {
+                                Toast warningNoFlight = Toast.makeText(getContext(), "No Results!", Toast.LENGTH_LONG);
+                                warningNoFlight.show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d(TAG, "retrofitFlightStatusByFlightNumber - onError");
+                            e.printStackTrace();
+                        }
+                    });
+        }
+
+        else if(params.length == 4) {
+            retrofitFlight = service.getFlightsByRoute(
+                    params[0], params[1], params[2], params[3], "application/json"
+            );
+
+            retrofitFlight.subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<Response<ApiFlightResults>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSubscribe()");
+                        }
+
+                        @Override
+                        public void onSuccess(Response<ApiFlightResults> apiFlightResultsResponse) {
+                            Log.d(TAG, "retrofitFlightStatusByFlightNumber - onSuccess");
+                            //JSONObject object = jsonObjectResponse.body();
+                            Log.d(TAG, "response body: " + apiFlightResultsResponse.body());
+                            Log.d(TAG, "response resp code: " + apiFlightResultsResponse.code());
+                            Log.d(TAG, "response header: " + apiFlightResultsResponse.headers());
+                            Log.d(TAG, "raw response: " + apiFlightResultsResponse.raw());
+                            if (!apiFlightResultsResponse.isSuccessful()) {
+                                try {
+                                    String resp = apiFlightResultsResponse.errorBody().string();
+                                    Log.d(TAG, "errorBody: " + resp);
+                                    Log.d(TAG, "Response: " + apiFlightResultsResponse.raw().networkResponse().toString());
+                                } catch (IOException exc) {
+                                    exc.printStackTrace();
+                                }
+                            }
+                            if (apiFlightResultsResponse.body() != null) {
+                                if (DataServices.extractFlights(apiFlightResultsResponse.body().getFlightStatusResource(), getContext()) == 1) {
+                                    openFLightRouteFragment();
+                                }
+                            } else {
+                                Toast warningNoFlight = Toast.makeText(getContext(), "No Results!", Toast.LENGTH_LONG);
+                                warningNoFlight.show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d(TAG, "retrofitFlightStatusByFlightNumber - onError");
+                            e.printStackTrace();
+                        }
+                    });
+        }
     }
 
     // open flight search info
@@ -346,9 +417,29 @@ public class FlightStatusFragment extends Fragment {
         parent.navigateToFlightInfoResult(getView());
     }
 
+
+    // open the view to show the flight route results
+    private void openFLightRouteFragment() {
+        FragmentCollection parent = (FragmentCollection) FlightStatusFragment.this.getParentFragment();
+        parent.navigateToFlightSearchResults(getView(), ddate.getText().toString());
+    }
+
+
     // open search results
     private void startRouteSearch() {
-        FragmentCollection parent = (FragmentCollection) FlightStatusFragment.this.getParentFragment();
-        parent.navigateToFlightSearchResults(getView());
+        String origin = autoCompleteDep.getText().toString();       // departure
+        String[] originCode = origin.split(", ");
+        origin = originCode[1];
+
+        String destination = autoCompleteArr.getText().toString();  // arrival
+        String[] destCode = destination.split(", ");
+        destination = destCode[1];
+
+        String date = formatDate(ddate.getText().toString());
+        String token = "Bearer " + StartPage.access_token.getAccess_token();
+
+        String[] paramsForRetrofit = new String[] {origin, destination, date, token};
+
+        doRetroFitFlightSearch(paramsForRetrofit);
     }
 }

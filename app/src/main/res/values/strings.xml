@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lufthansa Flight Information</string>
+    <string name="app_name">Lufthansa</string>
 
     <!-- Flight Status String -->
     <string name="button_flight_status">Flight Status</string>

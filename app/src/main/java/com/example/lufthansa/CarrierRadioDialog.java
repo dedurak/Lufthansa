@@ -27,20 +27,10 @@ public class CarrierRadioDialog extends DialogFragment {
         final View mainView = inflater.inflate(R.layout.carrier_radio, null);
 
         Button closeButton = mainView.findViewById(R.id.closeCarrierSelect);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        closeButton.setOnClickListener(v -> dismiss());
 
         Button selectButton = mainView.findViewById(R.id.selectButton);
-        selectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                assignValue(mainView);
-            }
-        });
+        selectButton.setOnClickListener(v -> assignValue(mainView));
 
         dialog.setView(mainView);
 

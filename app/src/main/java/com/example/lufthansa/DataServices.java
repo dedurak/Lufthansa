@@ -1,6 +1,10 @@
 package com.example.lufthansa;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+
+import com.example.lufthansa.APIObjects.Airlines.AirlineList;
 import com.example.lufthansa.APIObjects.Airport;
 import com.example.lufthansa.APIObjects.ApiAirportResult;
 import com.example.lufthansa.APIObjects.Flight;
@@ -37,7 +41,7 @@ public class DataServices {
     private static String depAirportName, arrAirportName, airportCode;
     private static String airportName;
     private static Flight flight;
-    private static List<Flight> flightList;
+    private static ArrayList<Flight> flightList;
     private static List<TimeTableFlight> departures;
 
     /*this method receives the flight as a JSONObject as received from the API and
@@ -47,7 +51,7 @@ public class DataServices {
     * type is the definition for the structure of the jsonobject - 1 is for Flights structure and 0 is for a handover
     * of Flight structure
     * */
-    public static int extractFlight(JSONObject object, int type) {
+    public static int extractFlight(JSONObject object, int type, Context context) {
         String operator;
         String flightNumber;
         String plannedDepTime, estDepTime;
@@ -63,8 +67,9 @@ public class DataServices {
         String departureTimeStatus, arrivalTimeStatus;
         String depStatCde, arrStatCode;
         try {
+
             JSONObject flightObject = (type == 1) ?
-                    object.getJSONObject("Flights").getJSONObject("Flight") : object;
+                    (JSONObject) object.getJSONObject("Flights").getJSONArray("Flight").get(0) : object;
 
             Log.d(TAG, "Departure?: " + flightObject.toString());
 
@@ -206,11 +211,13 @@ public class DataServices {
 
             arrival = new Airport(arrAirportCode, "");
 
+            Drawable operatorLogo = AirlineList.getLogo(operator, context);
+
             flight = new Flight(departure, arrival, operator, flightNumber,
                     plannedDepTime, estDepTime, plannedArrTime, estArrTime,
                     plannedDepTimeUTC, estDepTimeUTC, plannedArrTimeUTC, estArrTimeUTC,
                     depGate, arrGate, airCraftName, airCraftRegistration, statusOfFlight, statusCode,
-                    depStatCde, arrStatCode, departureTimeStatus, arrivalTimeStatus, depTerminal, arrTerminal);
+                    depStatCde, arrStatCode, departureTimeStatus, arrivalTimeStatus, depTerminal, arrTerminal, operatorLogo);
 
             return 1;
 
@@ -231,7 +238,7 @@ public class DataServices {
      * this method extracts and creates an according Flight Array in case of route search
      * all results are stored as an JSONArray inside JSONObject.
      * */
-    public static int extractFlights(JSONObject object) {
+    public static int extractFlights(JSONObject object, Context context) {
         flightList = new ArrayList<>();
 
 
@@ -243,29 +250,13 @@ public class DataServices {
             JSONObject flightChecker = null;
             JSONArray flights = null;
 
-            try {
-                if (object.getJSONObject("Flights").getJSONObject("Flight") instanceof JSONObject) {
-                    flightChecker = object.getJSONObject("Flights").getJSONObject("Flight");
-
-                    if(extractFlight(flightChecker, 0) == 1)
-                        flightList.add(flight);
-
-                    return 1;
-                }
-            } catch(JSONException exc) {
-                // catch the JSONException and rescue without system error
-                exc.printStackTrace();
-            }
-
-            if(flightChecker == null) {
-                flights = object.getJSONObject("Flights")
-                        .getJSONArray("Flight");
-            }
+            // api always returns
+            flights = object.getJSONObject("Flights").getJSONArray("Flight");
 
             int index = 0;
 
             while(index < flights.length()) {
-                if(extractFlight(flights.getJSONObject(index), 0) == 1) {
+                if(extractFlight(flights.getJSONObject(index), 0, context) == 1) {
                     flightList.add(flight);
                 }
                 ++index;
@@ -377,6 +368,7 @@ public class DataServices {
         return 1;
     }
 
+
     // return flight from list on position index
     public static Flight getFlightFromList(int index) {
         return flightList.get(index);
@@ -435,7 +427,7 @@ public class DataServices {
 
     public static Flight getFlight() { return flight; }
 
-    public static List<Flight> getFlightList() { return flightList; }
+    public static ArrayList<Flight> getFlightList() { return flightList; }
 
     public static List<TimeTableFlight> getDepartures() { return departures; }
 

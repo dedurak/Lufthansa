@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.lufthansa.APIObjects.ApiDepartures;
 import com.example.lufthansa.APIObjects.TimeTableFlight;
+import com.example.lufthansa.APIObjects.TtFlight;
 
 import org.json.JSONObject;
 
@@ -49,8 +50,7 @@ public class StartPageFlights extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        getFlights();
+
         return inflater.inflate(R.layout.fragment_start_page_flights, container, false);
     }
 
@@ -63,88 +63,7 @@ public class StartPageFlights extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         return dateFormat.format(cal.getTime());
     }
-
-    private void getFlights() {
-        Log.d(TAG, "Date is " + date);
-        reqUrl = "https://api.lufthansa.com/v1/operations/flightstatus/departures/FRA/" + date;
-
-        findTimeTableFlights("FRA");
-        //new FindFlights().execute(reqUrl);
-    }
-
-    private void addFlightsToLayout() {
-        LinearLayout mainLayout = getActivity().findViewById(R.id.flightsInsideStartPageLayout);
-        View childLayout;
-
-        List<TimeTableFlight> departures = DataServices.getDepartures();
-        ListIterator iterateThroughList = departures.listIterator();
-
-        int index = 0;
-
-        ProgressBar progressBar = mainLayout.findViewById(R.id.progression);
-        progressBar.setVisibility(View.GONE);
-
-        while(index<10 && iterateThroughList.hasNext()){
-            childLayout = this.getLayoutInflater().inflate(R.layout.timetable_flight, null);
-
-            TextView flightNo = childLayout.findViewById(R.id.flightInsideTimeTable_flightNo);
-            TextView destination = childLayout.findViewById(R.id.flightInsideTimeTable_destination);
-            TextView time = childLayout.findViewById(R.id.flightInsideTimeTable_time);
-            TextView status = childLayout.findViewById(R.id.flightInsideTimeTable_status);
-
-            flightNo.setText(departures.get(index).getFlightNo());
-            Log.d(TAG, departures.get(index).getFlightNo());
-            destination.setText(departures.get(index).getDestination());
-            time.setText(departures.get(index).getDepTimePlanned());
-            status.setText(departures.get(index).getFlightStatus());
-
-            Log.d(TAG, "Index: " + index);
-
-            mainLayout.addView(childLayout);
-            ++index;
-        }
-    }
-
-    private void findTimeTableFlights(String origin) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.lufthansa.com/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        ApiService service = retrofit.create(ApiService.class);
-
-        Log.d(TAG, "Origin: " + origin);
-        Log.d(TAG, "Date: " + date);
-        Log.d(TAG, "Bearer " + StartPage.access_token.getAccess_token());
-
-        Single<retrofit2.Response<ApiDepartures>> response = service.getDepartures(
-                origin,
-                date,
-                "Bearer " + StartPage.access_token.getAccess_token());
-
-        response.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<retrofit2.Response<ApiDepartures>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d(TAG, "inside StartPageFlights - onSubscribe");
-                    }
-
-                    @Override
-                    public void onSuccess(retrofit2.Response<ApiDepartures> jsonObjectResponse) {
-                        Log.d(TAG, "inside StartPageFlights - onSuccess");
-                        //Log.d(TAG, "received object: " + jsonObjectResponse.body().toString());
-                        //if(DataServices.extractFlights(jsonObjectResponse.body()) == 1)
-                          //  addFlightsToLayout();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "inside StartPageFlights - onError");
-                    }
-                });
-    }
+    
 
     /*
     private class FindFlights extends AsyncTask<String, Integer, Integer> {

@@ -203,7 +203,7 @@ public class DeparturesSearchWdw extends DialogFragment {
 
         /**
          *
-         * TO INSERT ----------> checker, who checks if all data are inserted as expected
+         * INSERT ----------> checker, who checks if all data are inserted as expected
          *
          * **/
         listener.receiveData(2, sendData);

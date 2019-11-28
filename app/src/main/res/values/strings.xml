@@ -19,14 +19,15 @@
     <!-- Timetable Arrival -->
     <string name="arrival_timetable">Arrivals</string>
 
+    <!-- MissingParamsDialog Values -->
+    <string name="wrongFormat">Wrong format! Please check the date and time selected.</string>
+    <string name="missingParams">Missing parameters! Please fill out all fields.</string>
+
     <string-array name="carrier">
         <item>LH</item>
         <item>EW</item>
         <item>OS</item>
         <item>LX</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

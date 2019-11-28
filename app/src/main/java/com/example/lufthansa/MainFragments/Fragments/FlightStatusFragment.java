@@ -66,17 +66,6 @@ public class FlightStatusFragment extends Fragment {
     private AppCompatImageButton flightSearchDate, carrierSelect;
     private AppCompatAutoCompleteTextView autoCompleteDep, autoCompleteArr;
 
-    String[] carriers = {"LH", "EW", "LX", "OS"};
-    int logos[] = {R.drawable.lh_logo, R.drawable.ew_logo_new, R.drawable.swiss_logo_new, R.drawable.os_logo_new};
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if(activity instanceof EventListener) {
-            listener = (EventListener) activity;
-        } else
-            Log.e(TAG, "Error");
-    }
 
     @NonNull
     @Override
@@ -217,7 +206,7 @@ public class FlightStatusFragment extends Fragment {
 
 
         // behavior for date search button
-        flightSearchDate = view.findViewById(R.id.buttoncalendar);
+        flightSearchDate = view.findViewById(R.id.depSearchDateButton);
         flightSearchDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,15 +324,7 @@ public class FlightStatusFragment extends Fragment {
                             Log.d(TAG, "response resp code: " + apiFlightResultsResponse.code());
                             Log.d(TAG, "response header: " + apiFlightResultsResponse.headers());
                             Log.d(TAG, "raw response: " + apiFlightResultsResponse.raw());
-                            if (!apiFlightResultsResponse.isSuccessful()) {
-                                try {
-                                    String resp = apiFlightResultsResponse.errorBody().string();
-                                    Log.d(TAG, "errorBody: " + resp);
-                                    Log.d(TAG, "Response: " + apiFlightResultsResponse.raw().networkResponse().toString());
-                                } catch (IOException exc) {
-                                    exc.printStackTrace();
-                                }
-                            }
+
                             if (apiFlightResultsResponse.body() != null) {
                                 if (DataServices.extractFlight(apiFlightResultsResponse.body().getFlightStatusResource(), 1, getContext()) == 1) {
                                     openFlightNumberFragment();

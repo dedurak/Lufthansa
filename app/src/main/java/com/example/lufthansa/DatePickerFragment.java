@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment;
 import android.util.Log;
 import android.widget.DatePicker;
 
+import com.example.lufthansa.MainFragments.Fragments.DepartureSearchFragment;
 import com.example.lufthansa.MainFragments.Fragments.FlightStatusFragment;
 
 import java.text.SimpleDateFormat;
@@ -48,7 +49,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         if(caller.equals("FS"))
             FlightStatusFragment.ddate.setText(date);
         else if(caller.equals("TTS"))
-            DeparturesSearchWdw.startDate.setText(date);
+            DepartureSearchFragment.startDate.setText(date);
         else if(caller.equals("TTE"))
             DeparturesSearchWdw.endDate.setText(date);
     }

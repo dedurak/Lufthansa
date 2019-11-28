@@ -8,6 +8,8 @@ import android.widget.TimePicker;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.example.lufthansa.MainFragments.Fragments.DepartureSearchFragment;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -24,7 +26,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minute = cal.get(Calendar.MINUTE);
 
-        return new TimePickerDialog(getActivity(), this, hour, minute, true);
+        TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, hour, minute, true);
+
+        return tpd;
     }
 
     @Override
@@ -42,8 +46,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         String timeToReturn = tp.getHour() + ":" + sMinute;
 
         if(timeCaller.equals("TS"))
-            DeparturesSearchWdw.startTime.setText(timeToReturn);
+            DepartureSearchFragment.startTimeSelected.setText(timeToReturn);
         else if (timeCaller.equals("TE"))
-            DeparturesSearchWdw.endTime.setText(timeToReturn);
+            DepartureSearchFragment.endTimeSelected.setText(timeToReturn);
     }
 }

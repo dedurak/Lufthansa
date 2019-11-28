@@ -50,5 +50,6 @@ public interface ApiService {
     @GET("operations/flightstatus/departures/{origin}/{dateTime}")
     Single<Response<ApiDepartures>> getDepartures(@Path("origin") String departureOrigin,
                                                   @Path("dateTme") String date,
-                                                  @Header("Authorization") String authorization);
+                                                  @Header("Authorization") String authorization,
+                                                  @Header("Accept") String values);
 }

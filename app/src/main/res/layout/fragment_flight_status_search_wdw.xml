@@ -17,7 +17,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containingMySpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -36,7 +36,6 @@
                 android:background="@color/lhSilver"
                 android:fontFamily="@font/cabin_medium"
                 android:hint="Carrier"
-                android:textAlignment="center"
                 android:textColor="@color/lhDeepBlue"
                 android:textCursorDrawable="@color/lhDeepBlue" />
 
@@ -46,7 +45,7 @@
             android:id="@+id/buttoncarrier"
             android:layout_width="50dp"
             android:layout_height="60dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="5dp"
             android:background="@color/lhSilver"
             android:src="@drawable/search"
@@ -164,7 +163,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"
-            android:layout_width="120dp"
+            android:layout_width="170dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
@@ -182,22 +181,22 @@
                 android:layout_height="60dp"
                 android:background="@color/lhSilver"
                 android:fontFamily="@font/cabin_medium"
-                android:textCursorDrawable="@color/lhDeepBlue"
                 android:hint="@string/select_date"
-                android:textAlignment="center"
                 android:textColor="@color/lhDeepBlue"
+                android:textCursorDrawable="@color/lhDeepBlue"
                 android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/buttoncalendar"
+            android:id="@+id/depSearchDateButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="16dp"
             android:background="@color/lhSilver"
             android:src="@drawable/ic_cal"
             android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <!--
@@ -221,7 +220,6 @@
             android:fontFamily="@font/cabin_medium"
             android:gravity="center"
             android:text="@string/search"
-            android:onClick="onArrivalSearch"
             android:textAlignment="center"
             android:textColor="@color/lhDeepBlue"
             android:textSize="18sp"
@@ -229,7 +227,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.518"
-            app:layout_constraintStart_toEndOf="@+id/buttoncalendar"
+            app:layout_constraintStart_toEndOf="@+id/depSearchDateButton"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
             app:layout_constraintVertical_bias="0.218" />
 

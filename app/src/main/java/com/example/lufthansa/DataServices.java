@@ -9,6 +9,8 @@ import com.example.lufthansa.APIObjects.Airport;
 import com.example.lufthansa.APIObjects.ApiAirportResult;
 import com.example.lufthansa.APIObjects.Flight;
 import com.example.lufthansa.APIObjects.TimeTableFlight;
+import com.example.lufthansa.APIObjects.TtFlight;
+import com.example.lufthansa.MainFragments.Fragments.DepartureSearchFragment;
 
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
@@ -42,7 +44,9 @@ public class DataServices {
     private static String airportName;
     private static Flight flight;
     private static ArrayList<Flight> flightList;
-    private static List<TimeTableFlight> departures;
+    private static List<TtFlight> departures;
+
+    private static int nextHour, nextMinute;
 
     /*this method receives the flight as a JSONObject as received from the API and
     * transforms into Flight object. The result is stored inside "flight".
@@ -271,103 +275,88 @@ public class DataServices {
     }
 
 
-    public static int extractDepartures(JSONObject object, String endTime, String date) {
+    // mode 0 - there is no endtime
+    // mode 1 -there is an endtime
+    // return 1 if fragment can call the next one to show the results, return 0 if not
+    public static int extractDepartures(JSONObject object, int mode, Context context) {
+
         departures = new ArrayList<>();
-        int endHour = Integer.parseInt(endTime.split(":")[0]);
-        int endMinute = Integer.parseInt(endTime.split(":")[1]);
-        int index, endIndex;
+
+        String timeOfLastFlight = "";
 
         try {
-            JSONArray departures = object.getJSONObject("FlightStatusResource")
+            JSONArray jsonDepartures = object.getJSONObject("FlightStatusResource")
                     .getJSONObject("Flights")
                     .getJSONArray("Flight");
 
-            JSONArray array = object.getJSONObject("FlightStatusResource")
-                    .getJSONObject("Meta")
-                    .getJSONArray("Link");
 
             int parseThroughArray = 0;
 
-            // check if there is a nextRange in case we need to fetch more data to accomplish the endTime
-            // later at startPage we check if nextPage has a value or not
-            while (parseThroughArray < array.length()) {
+            // parse through jsonarray
+            while(parseThroughArray<jsonDepartures.length()) {
 
-                // set at start to null in case we found no next range
-                StartPage.nextPage = null;
+                // get next flight inside list
+                JSONObject obj = jsonDepartures.getJSONObject(parseThroughArray);
 
-                JSONObject obj = array.getJSONObject(parseThroughArray);
+                Airport dCode = new Airport(obj.getJSONObject("Departure").getString("AirportCode").toString(), "");
+                Airport aCode = new Airport (obj.getJSONObject("Arrival").getString("AirportCode").toString(), "");
+                String operator = obj.getJSONObject("OperatingCarrier").getString("AirlineID").toString();
+                String flightNo = obj.getJSONObject("OperatingCarrier").getString("FlightNumber").toString();
+                String pDepTime = getTime(obj.getJSONObject("Departure").getJSONObject("ScheduledTimeLocal").getString("DateTime"));
+                String eDepTime = getTime(obj.getJSONObject("Departure").getJSONObject("ActualTimeLocal").getString("DateTime"));
+                String pArrTime = getTime(obj.getJSONObject("Arrival").getJSONObject("ScheduledTimeLocal").getString("DateTime"));
+                String eArrTime = getTime(obj.getJSONObject("Arrival").getJSONObject("ActualTimeLocal").getString("DateTime"));
+                String pDepUtc = getTime(obj.getJSONObject("Departure").getJSONObject("ScheduledTimeUTC").getString("DateTime"));
+                String eDepUtc = getTime(obj.getJSONObject("Departure").getJSONObject("ActualTimeUTC").getString("DateTime"));
+                String pArrUtc = getTime(obj.getJSONObject("Arrival").getJSONObject("ScheduledTimeUTC").getString("DateTime"));
+                String eArrUtc = getTime(obj.getJSONObject("Arrival").getJSONObject("ActualTimeUTC").getString("DateTime"));
+                String aircraftCode = obj.getJSONObject("Equipment").getString("AircraftCode");
+                String airCraftReg = obj.getJSONObject("Equipment").getString("AircraftRegistration");
+                String statusDef = obj.getJSONObject("FlightStatus").getString("Definition");
+                String statusCode = obj.getJSONObject("FlightStatus").getString("Code");
+                String dStatusDef = obj.getJSONObject("Departure").getJSONObject("TimeStatus").getString("Definition");
+                String dStatusCode = obj.getJSONObject("Departure").getJSONObject("TimeStatus").getString("Code");
+                String aStatusDef = obj.getJSONObject("Arrival").getJSONObject("TimeStatus").getString("Definition");
+                String aStatusCode = obj.getJSONObject("Arrival").getJSONObject("TimeStatus").getString("Code");
+                Drawable operatorLogo = AirlineList.getLogo(operator, context);
 
-                String nextRange = obj.getJSONObject("@Rel").toString();
+                timeOfLastFlight = pDepTime;
 
-                if (nextRange.equals("nextRange")) {
-                    StartPage.nextPage = obj.getJSONObject("@Href").toString();
-                    break;
-                } else
-                    ++parseThroughArray;
-            }
+                String splitTimeOfLastFlight[] = timeOfLastFlight.split(":");
 
-            index = 0;
-            endIndex = departures.length();
 
-            // parse through departures/arrivals
-            while(index < endIndex) {
+                if(Integer.parseInt(splitTimeOfLastFlight[0])>DepartureSearchFragment.endHour ||
+                    Integer.parseInt(splitTimeOfLastFlight[0]) == DepartureSearchFragment.endHour && Integer.parseInt(splitTimeOfLastFlight[1])>DepartureSearchFragment.endMinute) {
+                    return 1; // finish and start next fragment
+                }
+                    else {
+                    TtFlight nOne = new TtFlight(dCode, aCode, operator, flightNo,
+                            pDepTime, eDepTime, pArrTime, eArrTime,
+                            pDepUtc, eDepUtc, pArrUtc, eArrUtc,
+                            aircraftCode, airCraftReg, statusDef, statusCode,
+                            dStatusCode, aStatusCode, dStatusDef, aStatusDef, operatorLogo);
 
-                String timePlanned = (String) departures.getJSONObject(index)
-                        .getJSONObject("Departure")
-                        .getJSONObject("Scheduled")
-                        .get("Time");
-
-                int timePlannedHour = Integer.parseInt(timePlanned.split(":")[0]);
-                int timePlannedMinute = Integer.parseInt(timePlanned.split(":")[1]);
-                String dateToSplit = (String) departures.getJSONObject(index)
-                        .getJSONObject("Departure")
-                        .getJSONObject("Scheduled")
-                        .get("Date");
-
-                String dateDay = dateToSplit.split("-")[2];
-
-                // check if the date is the same because there is a option the date could be the one of the next
-                if(dateDay.equals(date))
-                    return 1;       // we return 1 and check afterwards in startPage if the timeTableFLights array is empty
-                                    // if so, startPage shows a toaster with the advise no flights have been found
-
-                // check if the time is under the end time
-                if(timePlannedHour <= endHour && timePlannedMinute <= endMinute) {
-
-                    // create new TimeTableflight data to insert inside the list
-                    TimeTableFlight ttFlight = new TimeTableFlight();
-                    ttFlight.setFlightNo(departures.getJSONObject(index)
-                            .getJSONObject("OperatingCarrier")
-                            .getString("AirlineID") + departures.getJSONObject(index)
-                            .getJSONObject("OperatingCarrier")
-                            .getString("FlightNumber"));
-                    ttFlight.setDestination(departures.getJSONObject(index)
-                            .getJSONObject("Arrival")
-                            .getString("AirportCode"));
-                    ttFlight.setDepTimePlanned(timePlanned);
-                    ttFlight.setFlightStatus(departures.getJSONObject(index)
-                            .getJSONObject("Departure")
-                            .getJSONObject("Status")
-                            .getString("Description"));
-
-                    // add new data inside the list
-                    DataServices.departures.add(ttFlight);
-
-                    ++index;
+                    departures.add(nOne);
                 }
 
-                if(index == (endIndex -1))
-                    return 0;               // 0 means that the nextPage needs to be fetched
-                else
-                    return 1;               // 1 means that list is ready and next activity can be called
+                ++parseThroughArray;
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+        } catch(JSONException exc) {
+            exc.printStackTrace();
         }
 
-        return 1;
+        return 0;
     }
 
+
+    public static int getNextHour() {
+        return nextHour;
+    }
+
+    public static int getNextMinute() {
+        return nextMinute;
+    }
 
     // return flight from list on position index
     public static Flight getFlightFromList(int index) {
@@ -429,7 +418,7 @@ public class DataServices {
 
     public static ArrayList<Flight> getFlightList() { return flightList; }
 
-    public static List<TimeTableFlight> getDepartures() { return departures; }
+    public static List<TtFlight> getDepartures() { return departures; }
 
     public static String getAirportName() { return airportName; }
 }

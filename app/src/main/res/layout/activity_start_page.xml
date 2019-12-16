@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextColor="@color/lhSilver"
-            app:title="@string/app_name" />
+            app:title="@string/topBarText" />
 
     <View
             android:id="@+id/view"

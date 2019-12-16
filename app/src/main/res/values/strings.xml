@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Lufthansa</string>
 
+    <string name="topBarText">Lufthansa Group</string>
+
     <!-- Flight Status String -->
     <string name="button_flight_status">Flight Status</string>
     <string name="flight_number">Flugnummer</string>

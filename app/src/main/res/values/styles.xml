@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -13,6 +12,10 @@
         <item name="android:datePickerStyle">@style/MyDatePicker</item>
         <item name="android:statusBarColor">@color/primaryMaterialDarkColor</item>
         <item name="android:timePickerDialogTheme">@style/MyTimePicker</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
     <style name="MyToolbar" parent="Widget.MaterialComponents.Toolbar">

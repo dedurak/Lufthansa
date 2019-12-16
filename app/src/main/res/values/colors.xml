@@ -14,6 +14,7 @@
     <color name="secondaryMaterialDarkColor">#bebebe</color>
     <color name="primaryMaterialTextColor">#f0f0f0</color>
     <color name="secondaryMaterialTextColor">#314870</color>
+    <color name="splashColor">#021F47</color>
 
     <!--############################################-->
 

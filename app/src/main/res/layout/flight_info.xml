@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/lhGray1"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/appCompatImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="backToLastFrag"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+            android:id="@+id/airlineLogo"
+            android:layout_width="110dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:transitionName="@string/transition"
+            app:layout_constraintStart_toEndOf="@+id/appCompatImageButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/flightnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/flight_number"
+            android:textColor="@color/lhDeepBlue"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/airlineLogo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/flightInfoTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/flightnumber"
+            app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+            android:id="@+id/shadow"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/flight_info_toolbar_shadow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shadow">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                <!-- contains the depairport and dep time planned and est-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="235dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/lhSilver"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/ic_flight_takeoff_blue"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                            android:id="@+id/departure"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="8dp"
+                            android:text="DEPARTURE"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/textView3"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                            android:id="@+id/flightInfoDepCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="DEPCODE"
+                            android:textAllCaps="false"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                    <TextView
+                            android:id="@+id/flightInfoDepCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="DEPNAME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoDepCode" />
+
+                    <TextView
+                            android:id="@+id/flightInfoDepAirport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="DEPAIRPORT"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/flightInfoDepCity"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoDepCode" />
+
+                    <TextView
+                            android:id="@+id/depTerminalTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            android:text="TERMINAL"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoDepCity" />
+
+                    <TextView
+                            android:id="@+id/depTerminalInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="24dp"
+                            android:text="TERMINAL UNKNOWN"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/depTerminalTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoDepCity" />
+
+                    <TextView
+                            android:id="@+id/depGateTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="GATE"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/depTerminalTitle" />
+
+                    <TextView
+                            android:id="@+id/depGateInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="GATE UNKNOWN"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/depGateTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/depTerminalInfo" />
+
+                    <TextView
+                            android:id="@+id/planDepTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            android:text="PLANNED"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/depGateTitle" />
+
+                    <TextView
+                            android:id="@+id/flightInfoPlannedDepTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="24dp"
+                            android:text="PLANNEDDEPTIME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/planDepTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/depGateInfo" />
+
+                    <TextView
+                            android:id="@+id/estDepTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ACTUAL"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/planDepTitle" />
+
+                    <TextView
+                            android:id="@+id/flightInfoEstDepTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ESTTIME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/estDepTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoPlannedDepTime" />
+
+                    <TextView
+                            android:id="@+id/depStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:layout_marginTop="8dp"
+                            android:text="STATUS"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/departure"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- contains the arrival infos -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="235dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/lhSilver"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/flight_info_approach"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                            android:id="@+id/approach"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ARRIVAL"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/textView4"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                            android:id="@+id/flightInfoArrCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="ARRCODE"
+                            android:textAllCaps="false"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                    <TextView
+                            android:id="@+id/flightInfoArrCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ARRNAME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoArrCode" />
+
+                    <TextView
+                            android:id="@+id/flightInfoArrAirport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ARRAIRPORT"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/flightInfoArrCity"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoArrCode" />
+
+                    <TextView
+                            android:id="@+id/arrTerminalTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            android:text="TERMINAL"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoArrCity" />
+
+                    <TextView
+                            android:id="@+id/arrTerminalInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="24dp"
+                            android:text="TERMINAL UNKNOWN"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/arrTerminalTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoArrCity" />
+
+                    <TextView
+                            android:id="@+id/arrGateTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="GATE"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/arrTerminalTitle" />
+
+                    <TextView
+                            android:id="@+id/arrGateInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="GATE UNKNOWN"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/arrGateTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/arrTerminalInfo" />
+
+                    <TextView
+                            android:id="@+id/planArrTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            android:text="PLANNED"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/arrGateTitle" />
+
+                    <TextView
+                            android:id="@+id/flightInfoPlannedArrTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="24dp"
+                            android:text="PLANNEDARRTIME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/planArrTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/arrGateInfo" />
+
+                    <TextView
+                            android:id="@+id/estArrTitle"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ACTUAL"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/planArrTitle" />
+
+                    <TextView
+                            android:id="@+id/flightInfoEstArrTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ESTTIME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/estArrTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoPlannedArrTime" />
+
+                    <TextView
+                            android:id="@+id/arrStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:layout_marginTop="8dp"
+                            android:text="STATUS"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/approach"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="215dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/lhSilver"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/ic_info_outline_black_24dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                            android:id="@+id/information"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="8dp"
+                            android:text="INFORMATION"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/textView5"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                            android:id="@+id/flightInfoStatus"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="40dp"
+                            android:text="STATUS"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reatFltTime" />
+
+                    <TextView
+                            android:id="@+id/flightInfoStatusContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="40dp"
+                            android:text="FIELD FOR STATUS INFO"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/flightInfoStatus"
+                            app:layout_constraintTop_toBottomOf="@+id/realFltTimeContent" />
+
+                    <TextView
+                            android:id="@+id/planFltTime"
+                            android:layout_width="155dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="PLANNED FLIGHT TIME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                    <TextView
+                            android:id="@+id/planFltTimeContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:text="PLAN FLIGHT TIME CONTENT"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/planFltTime"
+                            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                    <TextView
+                            android:id="@+id/reatFltTime"
+                            android:layout_width="155dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="REAL FLIGHT TIME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/planFltTime" />
+
+                    <TextView
+                            android:id="@+id/realFltTimeContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="REAL FLIGHT TIME CONTENT"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/reatFltTime"
+                            app:layout_constraintTop_toBottomOf="@+id/planFltTimeContent" />
+
+                    <TextView
+                            android:id="@+id/remainingTime"
+                            android:layout_width="155dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="REMAINING FLIGHT TIME"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reatFltTime" />
+
+                    <TextView
+                            android:id="@+id/remainingTimeContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TIME CONTENT"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toEndOf="@+id/remainingTime"
+                            app:layout_constraintTop_toBottomOf="@+id/realFltTimeContent" />
+
+                    <TextView
+                            android:id="@+id/flightInfoAircraft"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="AIRCRAFT"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoStatus" />
+
+                    <TextView
+                            android:id="@+id/flightInfoAirCraftContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:text="AIRCRAFTFIELD"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/flightInfoAircraft"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoStatusContent" />
+
+                    <TextView
+                            android:id="@+id/registration"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="REGISTRATION"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoAircraft" />
+
+                    <TextView
+                            android:id="@+id/registrationContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:text="REGISTRATIONFIELD"
+                            android:textColor="@color/lhDeepBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/registration"
+                            app:layout_constraintTop_toBottomOf="@+id/flightInfoAirCraftContent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>

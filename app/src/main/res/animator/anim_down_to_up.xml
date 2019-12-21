@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator
+            android:duration="1000"
+            android:propertyName="downToUp"
+            android:valueFrom="M 7.41 7.84 L 12 12.42 L 16.59 7.84 L 18 9.25 L 12 15.25 L 6 9.25 Z"
+            android:valueTo="M 7.41 15.41 L 12 10.83 L 16.59 15.41 L 18 14 L 12 8 L 6 14 Z"
+            android:valueType="pathType"/>
+</set>

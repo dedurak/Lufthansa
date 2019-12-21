@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/app_navigator"
+        app:startDestination="@id/fragmentCollection">
+
+    <fragment
+            android:id="@+id/fragmentCollection"
+            android:name="com.eduvation.lufthansa.MainFragments.FragmentCollection"
+            android:label="main_pager"
+            tools:layout="@layout/main_pager" >
+        <action
+                android:id="@+id/action_fragmentCollection_to_flightInfo"
+                app:destination="@id/flightInfo"
+                app:enterAnim="@anim/slide_in_from_down_to_up"
+                app:exitAnim="@anim/fade_out"
+                app:popExitAnim="@anim/slide_in_from_up_to_down"
+                app:popEnterAnim="@anim/fade_in"/>
+        <action
+                android:id="@+id/action_fragmentCollection_to_flightNumberInfoFragment"
+                app:destination="@id/flightNumberInfoFragment"
+                app:enterAnim="@anim/slide_in_from_down_to_up"
+                app:exitAnim="@anim/fade_out"
+                app:popExitAnim="@anim/slide_in_from_up_to_down"
+                app:popEnterAnim="@anim/fade_in"/>
+        <action
+                android:id="@+id/action_fragmentCollection_to_flightResultFragment"
+                app:destination="@id/flightResultFragment"
+                app:enterAnim="@anim/slide_in_from_down_to_up"
+                app:exitAnim="@anim/fade_out"
+                app:popExitAnim="@anim/slide_in_from_up_to_down"
+                app:popEnterAnim="@anim/fade_in"/>
+        <action
+                android:id="@+id/action_fragmentCollection_to_airportTextInput"
+                app:destination="@id/airportTextInput" />
+    </fragment>
+    <fragment
+            android:id="@+id/flightInfo"
+            android:name="com.eduvation.lufthansa.FlightInfoFragment"
+            android:label="fragment_flight_info"
+            tools:layout="@layout/fragment_flight_info" >
+        <action
+                android:id="@+id/action_flightInfo_to_fragmentCollection"
+                app:destination="@id/fragmentCollection"/>
+        <action
+                android:id="@+id/action_flightInfo_to_flightNumberInfoFragment"
+                app:destination="@id/flightNumberInfoFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/flightNumberInfoFragment"
+            android:name="com.eduvation.lufthansa.FlightNumberInfoFragment"
+            android:label="flight_status_cardview_result"
+            tools:layout="@layout/flight_status_cardview_result" >
+        <action
+                android:id="@+id/action_flightNumberInfoFragment_to_fragmentCollection"
+                app:destination="@id/fragmentCollection"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"/>
+    </fragment>
+    <fragment
+            android:id="@+id/flightResultFragment"
+            android:name="com.eduvation.lufthansa.FlightResultFragment"
+            android:label="departure_results"
+            tools:layout="@layout/flight_results" >
+        <action
+                android:id="@+id/action_flightResultFragment_to_flightNumberInfoFragment"
+                app:destination="@id/flightNumberInfoFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"/>
+    </fragment>
+    <fragment
+            android:id="@+id/airportTextInput"
+            android:name="com.eduvation.lufthansa.MainFragments.Fragments.AirportTextInput"
+            android:label="airport_text_input"
+            tools:layout="@layout/airport_text_input" />
+</navigation>

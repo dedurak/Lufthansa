@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -30,7 +31,7 @@ public class FlightInfoAdapter extends RecyclerView.Adapter<FlightInfoAdapter.Fl
     // viewHolder
     public static class FlightInfoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public AppCompatImageView logo;
+        public ImageView logo;
         public TextView flightNumber;
         public TextView flightDepTime;
         public TextView flightItemStatus;
@@ -49,7 +50,7 @@ public class FlightInfoAdapter extends RecyclerView.Adapter<FlightInfoAdapter.Fl
         // we implemented the onclick method for this viewholder to call the numberinfoFragment from the infoFragment for routes
         @Override
         public void onClick(View v) {
-            listener.recyclerClickListener(v, this.getLayoutPosition());
+            listener.recyclerClickListener(v, v.findViewById(R.id.flightItemAirlineLogo), this.getLayoutPosition());
         }
     }
 
@@ -70,7 +71,7 @@ public class FlightInfoAdapter extends RecyclerView.Adapter<FlightInfoAdapter.Fl
     public void onBindViewHolder(FlightInfoAdapter.FlightInfoHolder viewHolder, int position) {
         Flight flight = flights.get(position);
 
-        AppCompatImageView mLogo = viewHolder.logo;
+        ImageView mLogo = viewHolder.logo;
         mLogo.setImageDrawable(flight.getLogo());
 
         // the textviews

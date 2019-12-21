@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.eduvation.lufthansa.MainFragments.Fragments.FlightStatusFragment;
@@ -24,16 +27,14 @@ public class FragmentCollection extends Fragment {
     FragmentsAdapter adapter;
     ViewPager2 pager;
 
-    int[] iconsSelected = new int[] {
-            R.drawable.ic_flight_status_selected_24dp,
-            R.drawable.ic_dep_selected_24dp,
-            R.drawable.ic_arr_selected_24dp
+    private int[] iconsSelected = new int[] {
+            R.drawable.ic_status_selected_24dp,
+            R.drawable.ic_timetable_24dp
     };
 
-    int[] iconsNons = new int[] {
-            R.drawable.ic_flight_status_nonselected_24dp,
-            R.drawable.ic_dep_nons_24dp,
-            R.drawable.ic_arr_nonselected_24dp
+    private int[] iconsNons = new int[] {
+            R.drawable.ic_status_unselected_24dp,
+            R.drawable.ic_timetable_nonselected_24dp
     };
 
     @Nullable
@@ -56,18 +57,21 @@ public class FragmentCollection extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.d(TAG, "inside tabselected");
                 int tabPos = tab.getPosition();
                 tab.setIcon(iconsSelected[tabPos]);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                Log.d(TAG, "inside unselected");
                 int tabPos = tab.getPosition();
                 tab.setIcon(iconsNons[tabPos]);
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                Log.d(TAG, "inside reselcted");
             }
         });
 
@@ -80,9 +84,8 @@ public class FragmentCollection extends Fragment {
 
     private String getTxt(int position) {
         switch(position) {
-            case 0: return "INFO";
-            case 1: return "DEP";
-            case 2: return "ARR";
+            case 0: return "STATUS";
+            case 1: return "TIMETABLE";
         }
         return "DEFAULT";
     }
@@ -118,5 +121,12 @@ public class FragmentCollection extends Fragment {
         bundle.putInt("from", from);
         bundle.putString("airportCode", airportCode);
         Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_flightResultFragment, bundle);
+    }
+
+    public void navigateToAirportTextInput(View view, View transition) {
+        FragmentNavigator.Extras.Builder extras = new FragmentNavigator.Extras.Builder();
+        extras.addSharedElement(transition, transition.getTransitionName());
+        FragmentNavigator.Extras build = extras.build();
+        Navigation.findNavController(view).navigate(R.id.action_fragmentCollection_to_airportTextInput, null, null, build);
     }
 }

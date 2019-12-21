@@ -2,7 +2,9 @@ package com.eduvation.lufthansa;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,9 @@ import com.eduvation.lufthansa.APIObjects.Airlines.AirlineList;
 import com.eduvation.lufthansa.APIObjects.Airports.AirportList;
 import com.eduvation.lufthansa.APIObjects.Cities.CityList;
 import com.eduvation.lufthansa.APIObjects.Flight;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +37,8 @@ public class FlightNumberInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        postponeEnterTransition();
+        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
 
         Log.d(TAG,"inside onCreate");
         String index = getArguments().getString("index");
@@ -56,9 +63,26 @@ public class FlightNumberInfoFragment extends Fragment {
 
         // find and load logo
         ImageView logo = view.findViewById(R.id.airlineLogo);
-        Drawable drawable = AirlineList.getLogo(flight.getOperator(), getContext());
-        if(drawable != null)
-            logo.setImageDrawable(drawable);
+   //     Drawable drawable = AirlineList.getLogo(flight.getOperator(), getContext());
+
+        int draw = AirlineList.getLogoId(flight.getOperator());
+
+        Picasso.get().load(draw).into(logo, new Callback() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "inside onsuccess picasso");
+                startPostponedEnterTransition();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.d(TAG, "inside onerror picasso");
+                startPostponedEnterTransition();
+            }
+        });
+
+//        if(drawable != null)
+  //          logo.setImageDrawable(drawable);
 
         TextView depTimePlanned = view.findViewById(R.id.flightInfoPlannedDepTime);
         depTimePlanned.setText(flight.getPlannedDepartureTime());

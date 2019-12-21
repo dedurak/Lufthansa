@@ -6,9 +6,11 @@ import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 
 public class FlightInfoFragment extends Fragment implements FlightInfoItemClickListener {
 
+    private final String TAG = FlightInfoFragment.class.getSimpleName();
+
     // vars later in use @onCreateView then creating recyclerview
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -33,8 +37,6 @@ public class FlightInfoFragment extends Fragment implements FlightInfoItemClickL
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-
-        hideTopBar();
 
         searchDate = getArguments().getString("date");
     }
@@ -82,35 +84,18 @@ public class FlightInfoFragment extends Fragment implements FlightInfoItemClickL
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        // check if top bar is visible - if so, set them again to gone
-        if(getActivity().findViewById(R.id.start_toolbar).getVisibility() != View.GONE)
-            hideTopBar();
-    }
-
-    // hides the elements of the topbar and the topbar itself
-    private void hideTopBar() {
-        MaterialToolbar toolbar = getActivity().findViewById(R.id.start_toolbar);
-        toolbar.setVisibility(View.GONE);
-
-        View view = getActivity().findViewById(R.id.view);
-        view.setVisibility(View.GONE);
-
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.setMargins(0, 0, 0, 0);
-
-        View fragment = getActivity().findViewById(R.id.navigation_component);
-        fragment.setLayoutParams(params);
-    }
-
-    @Override
-    public void recyclerClickListener(View v, int pos) {
+    public void recyclerClickListener(View v, View transition, int pos) {
         // change view to numberInfoFragment
         Bundle bundle = new Bundle();
         bundle.putString("index", Integer.toString(pos));
         bundle.putString("from", "flightInfo");
-        Navigation.findNavController(v).navigate(R.id.action_flightInfo_to_flightNumberInfoFragment, bundle);
+
+        FragmentNavigator.Extras.Builder extras = new FragmentNavigator.Extras.Builder();
+        extras.addSharedElement(transition, transition.getTransitionName());
+        FragmentNavigator.Extras build = extras.build();
+
+        Log.d(TAG, "inside recyclerclicklistener, transition: " + transition.getId() + " "+ transition.getTransitionName());
+
+        Navigation.findNavController(v).navigate(R.id.action_flightInfo_to_flightNumberInfoFragment, bundle, null, build);
     }
 }

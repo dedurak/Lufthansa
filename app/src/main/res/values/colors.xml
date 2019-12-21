@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
@@ -26,12 +26,14 @@
     <color name="lhDeepBlueOpaque">#B305164D</color>
     <color name="lhYellow">#FFAD00</color>
     <color name="white">#FFFFFF</color>
+    <color name="whitOpaque">#B3FFFFFF</color>
     <color name="green">#5BC760</color>
     <color name="red">#EF5350</color>
 
     <!-- grey colors -->
     <color name="lhGray">#F5EAEA</color>
     <color name="lhGray1">#d4d4d4</color>
+    <color name="lhGray1Opaque">#B3D4D4D4</color>
     <color name="lhGray2">#cccccc</color>
     <color name="lhGray3">#b4b4b4</color>
     <color name="lhGray4">#999999</color>
@@ -42,6 +44,7 @@
     <color name="lhGray9">#282828</color>
 
     <color name="lhSilver">#f0f0f0</color>
+    <color name="lhSilverOpaque">#B3F0F0F0</color>
 
     <!-- blue colors -->
     <color name="lhBlue1">#03123f</color>
@@ -57,7 +60,6 @@
     <!-- airportbg lh colors -->
     <color name="lhYellowOpaquePressed">#F57C00</color>
     <color name="lhYellowOpaque">#B3FFAD00</color>
-    <color name="lhSilverOpaque">#4D787878</color>
 
     <!-- airportbg lh colors -->
     <color name="osred">#E71C23</color>

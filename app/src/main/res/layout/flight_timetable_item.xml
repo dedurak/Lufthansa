@@ -8,11 +8,12 @@
         android:background="@drawable/draw_flight_overview"
         android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
             android:id="@+id/flightItemAirlineLogo"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
+            android:transitionName="@string/transition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +29,7 @@
             app:layout_constraintStart_toEndOf="@+id/flightItemAirlineLogo"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
             android:id="@+id/flightItemTakeOffLogo"
             android:layout_width="24dp"
             android:layout_height="24dp"

@@ -52,6 +52,15 @@ public class AirlineList {
         return id;
     }
 
+    public static int getLogoId(String code) {
+        for(int index = 0; index<airlines.length; index++) {
+            if (airlines[index].getAirlineCode().equals(code))
+                return airlines[index].getLogo();
+        }
+
+        return 0;
+    }
+
     // search for airline shortcut with airline name
     public static String getCode(String airlineName) {
         int i = 0;

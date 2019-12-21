@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="32dp"
+            android:elevation="2dp"
+            android:textColorHint="@color/lhDeepBlue"
+            android:background="@drawable/search_airport_input_field"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:endIconDrawable="@drawable/ic_cancel_blue_24dp"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/lhDeepBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/depAirportSearchButton2"
+            app:layout_constraintTop_toBottomOf="@+id/tableType">
+
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/airporttextedit"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/cabin_medium"
+                android:hint="@string/search_airport"
+                android:textColorHint="@color/black"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/lhDeepBlue"
+                android:textCursorDrawable="@color/lhDeepBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingStart="200dp">
+    <Button
+            android:id="@+id/cancelAirportSelectionButton"
+            android:layout_width="86dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/second_button"
+            android:fontFamily="@font/cabin_medium"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@android:string/cancel"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+
+    <Button
+            android:id="@+id/airportSelectedButton"
+            android:layout_width="86dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/second_button"
+            android:fontFamily="@font/cabin_medium"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@android:string/ok"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

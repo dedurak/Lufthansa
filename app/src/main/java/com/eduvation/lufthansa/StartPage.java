@@ -1,5 +1,6 @@
 package com.eduvation.lufthansa;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.eduvation.lufthansa.APIObjects.AccessTokenObject;
+import com.eduvation.lufthansa.MainFragments.Fragments.AirportTextInput;
+import com.eduvation.lufthansa.MainFragments.Fragments.FlightStatusFragment;
 
 import io.reactivex.*;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -26,6 +29,8 @@ public class StartPage extends FragmentActivity {
     private static final String TAG = AppCompatActivity.class.getSimpleName();
 
     public static AccessTokenObject access_token;
+    public static int mode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,5 +97,4 @@ public class StartPage extends FragmentActivity {
     public void backToLastFrag(View view) {
         this.onBackPressed();
     }
-
 }

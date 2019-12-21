@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/lhDeepBlue</item>
         <item name="android:textColorHighlight">@color/lhBlue6</item>
         <item name="toolbarStyle">@style/MyToolbar</item>
+        <item name="android:windowContentTransitions">true</item>
 
         <item name="android:dialogTheme">@style/MyDialogTheme</item>
         <item name="android:datePickerStyle">@style/MyDatePicker</item>
@@ -20,7 +21,7 @@
 
     <style name="MyToolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:fontFamily">@font/cabin_medium</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:background">@color/primaryMaterialColor</item>
     </style>
 

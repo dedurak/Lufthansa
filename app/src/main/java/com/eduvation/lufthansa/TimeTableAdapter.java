@@ -55,7 +55,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
 
         // implement onClick to call the numberinfo fragment to show the details of the departure flight
         @Override
-        public void onClick (View v) {listener.recyclerClickListener(v, this.getLayoutPosition()); }
+        public void onClick (View v) {listener.recyclerClickListener(v, v.findViewById(R.id.depAirlineLogo), this.getLayoutPosition()); }
     }
 
 

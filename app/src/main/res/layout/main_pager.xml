@@ -6,21 +6,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            android:background="@color/white"
-            app:tabSelectedTextColor="@color/lhDeepBlue"
-            app:tabTextColor="@color/lhBlue6"
+            style="@style/Widget.MaterialComponents.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            style="@style/Widget.MaterialComponents.TabLayout"
-            app:tabBackground="@color/lhGray1"
-            app:tabIconTint="@color/lhDeepBlue"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/lhDeepBlue"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_toolbar"/>
+            app:layout_constraintTop_toBottomOf="@+id/start_toolbar"
+            app:tabBackground="@color/whitOpaque"
+            app:tabGravity="fill"
+            app:tabIconTint="@color/lhDeepBlue"
+            app:tabIndicatorColor="@color/lhYellow"
+            app:tabSelectedTextColor="@color/lhDeepBlue"
+            app:tabTextColor="@color/lhBlue6" />
 
     <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/mainPager"

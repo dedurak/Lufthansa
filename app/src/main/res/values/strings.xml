@@ -5,15 +5,17 @@
 
     <!-- Flight Status String -->
     <string name="button_flight_status">Flight Status</string>
-    <string name="flight_number">Flugnummer</string>
-    <string name="from">Von</string>
-    <string name="to">Nach</string>
+    <string name="flight_number">flightnumber</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="search_airport">Search Airport</string>
     <string name="select_date">Date</string>
     <string name="select_start_time">Start</string>
     <string name="select_end_time">End</string>
     <string name="search">Search</string>
     <string name="cancel">Cancel</string>
     <string name="flight_search_wdw_title">Lufthansa Group</string>
+    <string name="transition">flightLogo</string>
 
     <!-- Timetable Departure -->
     <string name="departure_timetable">Departures</string>

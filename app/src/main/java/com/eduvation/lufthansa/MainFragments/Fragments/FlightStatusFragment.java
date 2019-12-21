@@ -1,6 +1,7 @@
 package com.eduvation.lufthansa.MainFragments.Fragments;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.eduvation.lufthansa.DataServices;
 import com.eduvation.lufthansa.DatePickerFragment;
 import com.eduvation.lufthansa.MainFragments.FragmentCollection;
 import com.eduvation.lufthansa.R;
+import com.eduvation.lufthansa.SharedAirportData;
 import com.eduvation.lufthansa.StartPage;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -22,6 +24,7 @@ import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -53,6 +56,7 @@ public class FlightStatusFragment extends Fragment {
     private String date;
     private String[] hintAirportList;
     public static TextInputEditText ddate, selectedCarrier;
+    private ImageButton depBtn, arrBtn;
     EditText to, from, flightNumber;
     TextInputEditText flightNoInpField;
     View view;
@@ -60,41 +64,52 @@ public class FlightStatusFragment extends Fragment {
     private AppCompatImageButton flightSearchDate, carrierSelect;
     private AppCompatAutoCompleteTextView autoCompleteDep, autoCompleteArr;
 
+    @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
 
+        SharedAirportData data;
+        data = ViewModelProviders.of(getActivity()).get(SharedAirportData.class);
+
+        data.getSelected().observe(this, s -> {
+            if(StartPage.mode == 1)
+                autoCompleteArr.setText(s);
+            else if(StartPage.mode == 0)
+                autoCompleteDep.setText(s);
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     @NonNull
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         getTodaysDate();
-        createHintAirportList();
 
         view = inflater.inflate(R.layout.fragment_flight_status_search_wdw, container,false);
 
-        /**
-
-         This part is not necessary until there is no spinner anymore
-
-        Spinner spinner = view.findViewById(R.id.selectedCarrier);
-        MyAdapter adapter = new MyAdapter(getContext(), logos, carriers);
-        spinner.setAdapter(adapter);
-        **/
+        depBtn = view.findViewById(R.id.depAirportSearchButton);
+        depBtn.setOnClickListener(l -> {
+            AirportTextInput.field = 0;
+            FragmentCollection parent = (FragmentCollection) getParentFragment();
+            parent.navigateToAirportTextInput(getView(), view.findViewById(R.id.flightSearchArrival));
+        });
+        arrBtn = view.findViewById(R.id.arrSearchButton);
+        arrBtn.setOnClickListener(l -> {
+            AirportTextInput.field = 1;
+            FragmentCollection parent = (FragmentCollection) getParentFragment();
+            parent.navigateToAirportTextInput(getView(), view.findViewById(R.id.flightSearchArrival));
+        });
 
         autoCompleteDep = view.findViewById(R.id.flightSearchDeparture);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, hintAirportList);
-        autoCompleteDep.setThreshold(2);
-
         autoCompleteArr = view.findViewById(R.id.flightSearchArrival);
-        autoCompleteArr.setThreshold(2);
-
-        autoCompleteDep.setAdapter(arrayAdapter);
-        autoCompleteArr.setAdapter(arrayAdapter);
 
         flightNoInpField = view.findViewById(R.id.flightSearchFlightNumber);
 
         // if not null dep and arr field are disabled
         flightNoInpField.addTextChangedListener(new TextWatcher() {
-            Drawable colorDisabled = getContext().getDrawable(R.color.lhGray2);
-            Drawable colorEnabled = getContext().getDrawable(R.color.lhSilver);
+            Drawable colorDisabled = getContext().getDrawable(R.drawable.textbackground_disabled);
+            Drawable colorEnabled = getContext().getDrawable(R.drawable.textbackground);
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -122,8 +137,8 @@ public class FlightStatusFragment extends Fragment {
         // listens to changes within dep input field and changes the textview for flightno to enabled or disabled
         // depends on input within dep field
         autoCompleteDep.addTextChangedListener(new TextWatcher() {
-            Drawable colorDisabled = getContext().getDrawable(R.color.lhGray2);
-            Drawable colorEnabled = getContext().getDrawable(R.color.lhSilver);
+            Drawable colorDisabled = getContext().getDrawable(R.drawable.textbackground_disabled);
+            Drawable colorEnabled = getContext().getDrawable(R.drawable.textbackground);
 
             View flightNoView = view.findViewById(R.id.flightSearchFlightNumber);
 
@@ -145,6 +160,18 @@ public class FlightStatusFragment extends Fragment {
                 else {
                     flightNoView.setEnabled(true);
                     flightNoView.setBackground(colorEnabled);
+                }
+            }
+        });
+
+        autoCompleteDep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    // view is focuseed
+
+                } else {
+                    // focus is gone
                 }
             }
         });
@@ -216,8 +243,6 @@ public class FlightStatusFragment extends Fragment {
         //selectCarrier = view.findViewById(R.id.selectedCarrier);
 //        selectCarrier.setOnItemSelectedListener(this);
     }
-
-
 
     private String formatDate(String date2) {
         Log.d(TAG, "date is: " + date2);

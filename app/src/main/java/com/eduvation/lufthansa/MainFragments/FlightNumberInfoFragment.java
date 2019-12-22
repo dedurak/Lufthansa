@@ -1,8 +1,6 @@
-package com.eduvation.lufthansa;
+package com.eduvation.lufthansa.MainFragments;
 
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -20,9 +18,10 @@ import com.eduvation.lufthansa.APIObjects.Airlines.AirlineList;
 import com.eduvation.lufthansa.APIObjects.Airports.AirportList;
 import com.eduvation.lufthansa.APIObjects.Cities.CityList;
 import com.eduvation.lufthansa.APIObjects.Flight;
+import com.eduvation.lufthansa.DataServices;
+import com.eduvation.lufthansa.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.PicassoProvider;
 
 import org.jetbrains.annotations.NotNull;
 

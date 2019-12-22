@@ -1,4 +1,4 @@
-package com.eduvation.lufthansa;
+package com.eduvation.lufthansa.MainFragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +16,15 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eduvation.lufthansa.APIObjects.ApiFlights;
 import com.eduvation.lufthansa.APIObjects.ApiFlightResults;
+import com.eduvation.lufthansa.APIObjects.ApiFlights;
 import com.eduvation.lufthansa.APIObjects.TtFlight;
+import com.eduvation.lufthansa.ApiService;
+import com.eduvation.lufthansa.DataServices;
 import com.eduvation.lufthansa.MainFragments.Fragments.FlightInfoItemClickListener;
+import com.eduvation.lufthansa.R;
+import com.eduvation.lufthansa.StartPage;
+import com.eduvation.lufthansa.TimeTableAdapter;
 
 import java.util.ArrayList;
 

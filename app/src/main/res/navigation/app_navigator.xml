@@ -37,7 +37,7 @@
     </fragment>
     <fragment
             android:id="@+id/flightInfo"
-            android:name="com.eduvation.lufthansa.FlightInfoFragment"
+            android:name="com.eduvation.lufthansa.MainFragments.FlightInfoFragment"
             android:label="fragment_flight_info"
             tools:layout="@layout/fragment_flight_info" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
             android:id="@+id/flightNumberInfoFragment"
-            android:name="com.eduvation.lufthansa.FlightNumberInfoFragment"
+            android:name="com.eduvation.lufthansa.MainFragments.FlightNumberInfoFragment"
             android:label="flight_status_cardview_result"
             tools:layout="@layout/flight_status_cardview_result" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
             android:id="@+id/flightResultFragment"
-            android:name="com.eduvation.lufthansa.FlightResultFragment"
+            android:name="com.eduvation.lufthansa.MainFragments.FlightResultFragment"
             android:label="departure_results"
             tools:layout="@layout/flight_results" >
         <action

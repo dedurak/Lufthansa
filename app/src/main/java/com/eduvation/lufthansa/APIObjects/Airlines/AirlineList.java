@@ -8,6 +8,7 @@ public class AirlineList {
     static Airline[] airlines = {
             new Airline("JP", "Adria Airways", R.drawable.adria),
             new Airline("A3", "Aegean Airlines", R.drawable.aegean),
+            new Airline("SU",l "Aeroflot", R.drawable.aeroflot),
             new Airline("AC", "Air Canada", R.drawable.aircanada),
             new Airline("CA", "Air China", R.drawable.airchina),
             new Airline("AI", "Air India", R.drawable.airindia),
@@ -22,8 +23,10 @@ public class AirlineList {
             new Airline("OU", "Croatia Airlines", R.drawable.croatia),
             new Airline("MS", "Egyptair", R.drawable.egyptair),
             new Airline("ET", "Ethipian Airlines", R.drawable.ethiopian),
+            new Airline("EY", "Etihad Aiways", R.drawable.etihad),
             new Airline("EW", "Eurowings", R.drawable.eurowings),
             new Airline("BR", "Eva Air", R.drawable.eva),
+            new Airline("JL", "Japan Airlines", R.drawable.jal),
             new Airline("LO", "LOT", R.drawable.lot),
             new Airline("LH", "Lufthansa", R.drawable.lufthansa),
             new Airline("SK", "Scandinavian Airlines", R.drawable.sas),
@@ -37,6 +40,7 @@ public class AirlineList {
             new Airline("XQ", "SunExpress", R.drawable.sunexpress),
             new Airline("XG", "SunExpress", R.drawable.sunexpress),
             new Airline("UA", "United Airlines", R.drawable.united),
+            new Airline("VN", "Vietnam Airlines", R.drawable.vietnam),
             new Airline("CX", "Cathay Pacific", R.drawable.cathay)
     };
 

@@ -6,6 +6,7 @@ public class AirportList {
             // A
             new Airport("ABZ", "ABZ", "GB", "Aberdeen Airport"),
             new Airport("ACC", "ACC", "GH", "Accra Kotoka International"),
+            new Airport("ADA", "ADA", "TR", "Adana Airport"),
             new Airport("ADB", "IZM", "TR", "Adnan Menderes Airport"),
             new Airport("ADD", "ADD", "ET", "Addis Ababa Bole International"),
             new Airport("AGP", "AGP", "ES", "Malaga Airport"),
@@ -14,8 +15,10 @@ public class AirportList {
             new Airport("ALG", "ALG", "DZ", "Algier Houari Boumediene Airport"),
             new Airport("AMM", "AMM", "JO", "Queen Alia International"),
             new Airport("AMS", "AMS", "NL", "Amsterdam-Schiphol"),
+            new Airport("AOE", "ESK", "TR", "Eskisehir-Anadolu Airport"),
             new Airport("AOI", "AOI", "IT", "Ancona Falconara Airport"),
             new Airport("ARN", "STO", "SE", "Stockholm Arlanda"),
+            new Airport("ASR", "ASR", "TR", "Kayseri Airport"),
             new Airport("ATH", "ATH", "GR", "Athen-Eleftherios Venizelos"),
             new Airport("ATL", "ATL", "US", "Hartsfield Atlanta International"),
             new Airport("AUH", "AUH", "AE", "Abu Dhabi International"),
@@ -23,6 +26,7 @@ public class AirportList {
             new Airport("AYT", "AYT", "TR", "Antalya Havalimani Airprt"),
 
             // B
+            new Airport("BAH", "BAH", "BH", "Bahrain International Airport"),
             new Airport("BCN", "BCN", "ES", "Barcelona El Prat"),
             new Airport("BEG", "BEG", "RS", "Nikola Tesla Airport"),
             new Airport("BEY", "BEY", "LB", "Beirut Rafiq-Hariri International"),
@@ -31,6 +35,7 @@ public class AirportList {
             new Airport("BIA", "BIA", "FR", "Bastia Poretta Airport"),
             new Airport("BIO", "BIO", "ES", "Bilbaio Airport"),
             new Airport("BIQ", "BIQ", "FR", "Biarritz Airport"),
+            new Airport("BJV", "!BJV", "TR", "Bodrum/Milas Airport"),
             new Airport("BLL", "BLL", "DK", "Billund Airport"),
             new Airport("BLQ", "BLQ", "IT", "Bologna G. Marconi Airport"),
             new Airport("BLR", "BLR", "IN", "Kempegowda International"),
@@ -65,6 +70,8 @@ public class AirportList {
             new Airport("DEL", "DEL", "IN", "New Delhi Indira Ghandi International"),
             new Airport("DEN", "DEN", "US", "Denver International"),
             new Airport("DFW", "DFW", "US", "Dallas/Fort Worth International"),
+            new Airport("DIY", "DIY", "TR", "Diyarbakir Airport"),
+            new Airport("DLM", "DLM", "TR", "Dalaman Airport"),
             new Airport("DME", "MOW", "RU", "Moscow-Domodedovo"),
             new Airport("DOH", "DOH", "QA", "Hamad International"),
             new Airport("DRS", "DRS", "DE", "Dresden Airport"),
@@ -74,11 +81,16 @@ public class AirportList {
             new Airport("DXB", "DXB", "AE", "Dubai Airport"),
 
             // E
+            new Airport("EBL", "EBL", "IQ", "Erbil Airport"),
+            new Airport("ECN", "ECN", "CY", "Ercan Airport"),
             new Airport("EDI", "EDI", "GB", "Edinburgh Airport"),
+            new Airport("EDO", "EDO", "TR", "Edremit/Bergama Airport"),
             new Airport("EFL", "EFL", "GR", "Kefallinia Airport"),
+            new AIrport("ERZ", "ERZ", "TR", "Erzurum Airport"),
             new Airport("ESB", "ANK", "TR", "Ankara Esanboğa International"),
             new Airport("EWR", "NYC", "US", "Newark Liberty International"),
             new Airport("EZE", "BUE", "AR", "Buenos Aires-Ezeiza"),
+            new Airport("EZS", "EZS", "TR", "Elazig Airport"),
 
             // F
             new Airport("FAO", "FAO", "PT", "Faro International"),
@@ -100,6 +112,8 @@ public class AirportList {
             new Airport("GVA", "GVA", "CH", "Genf International"),
             new Airport("GWT", "GWT", "DE", "Sylt Airport"),
             new Airport("GYD", "BAK", "AZ", "Baku Heydar Aliyev International"),
+            new Airport("GZP", "GZP", "TR", "Alanya/Gazipasa Airport"),
+            new Airport("GZT", "GZT", "TR", "Gaziantep Airport"),
 
             // H
             new Airport("HAJ", "HAJ", "DE", "Hannover Airport"),
@@ -111,6 +125,7 @@ public class AirportList {
             new Airport("HND", "TYO", "JP", "Tokyo-Haneda"),
             new Airport("HNL", "HNL", "US", "Honolulu International"),
             new Airport("HRG", "HRG", "EG", "Hurghada International"),
+            new Airport("HTY", "HTY", "TR", "Hatay Airport"),
             new Airport("HOU", "HOU", "US", "William P. Hobby Airport"),
 
             // I
@@ -134,6 +149,7 @@ public class AirportList {
             new Airport("KIV", "KIV", "MD", "Chisinau International"),
             new Airport("KIX", "OSA", "JP", "Osaka Kansai International"),
             new Airport("KRK", "KRK", "PL", "Johannes Paul II. Krakau-Balice Airport"),
+            new Airport("KSY", "KSY", "TR", "Kars--Harakani Airport"),
             new Airport("KTW", "KTW", "PL", "Katowice Airport"),
             new Airport("KUF", "KUF", "RU", "Samara Airport"),
             new Airport("KUL", "KUL", "MY", "Kuala Lumpur International"),
@@ -167,6 +183,7 @@ public class AirportList {
             new Airport("MEX", "MEX", "MX", "Mexiko-City International"),
             new Airport("MIA", "MIA", "US", "Miami International"),
             new Airport("MLA", "MLA", "MT", "Malta Airport"),
+            new Airport("MLX", "MLX", "TR", "Malatya Airport"),
             new Airport("MRS", "MRS", "FR", "Marseille Provence Airport"),
             new Airport("MRU", "MRU", "MU", "Sir Seewoosagur Ramgoolam International"),
             new Airport("MSQ", "MSQ", "BY", "Minsk National Airport"),
@@ -182,6 +199,7 @@ public class AirportList {
             new Airport("NUE", "NUE", "DE", "Nuremberg Airport"),
 
             // O
+            new Airport("OGU", "OGU", "TR", "Ordu-Giresun Airport"),
             new Airport("OLB", "OLB", "IT", "Costa Smeralda Airport"),
             new Airport("OPO", "OPO", "PT", "Francisco Sa Cameiro International"),
             new Airport("ORD", "CHI", "US", "Chicago O'Hare International"),
@@ -209,6 +227,7 @@ public class AirportList {
             new Airport("RIX", "RIX", "LV", "Riga Airport"),
             new Airport("RJK", "RJK", "HR", "Rijeka Airport"),
             new Airport("RLG", "RLG", "DE", "Rostock/Laage Airport"),
+            new Airport("RMF", "RMF", "EG", "Marsa Alam International Airport"),
             new Airport("RTM", "RTM", "NL", "Rotterdam The Hague Airport"),
             new Airport("RUH", "RUH", "SA", "King Khalid International"),
             new Airport("RZE", "RZE", "PL", "Rzeszow-Jasionka Airport"),
@@ -232,6 +251,7 @@ public class AirportList {
             new Airport("SVG", "SVG", "NO", "Stavanger Airport"),
             new Airport("SVQ", "SVQ", "ES", "Aeropuerto de Sevilla"),
             new Airport("SXB", "SXB", "FR", "Strasbourg International"),
+            new Airport("SZF", "SZF", "TR", "Samsun-Carsamba Airport"),
             new Airport("SZG", "SZG", "AT", "W.A.Mozart Airport"),
 
             // T
@@ -246,9 +266,11 @@ public class AirportList {
             new Airport("TRS", "TRS", "IT", "Trieste - Friuli Venezia Giulia Airport"),
             new Airport("TSR", "TSR", "RO", "Timisoara Traian Vuia International"),
             new Airport("TUN", "TUN", "TN", "Tunis-Carthage International"),
-            new Airport("TXL", "BER", "DE", "Berlin-Tegel"),
+            new Airport("TXL", "BER", "DE", "Berlin-Tegel Airport"),
+            new Airport("TZX", "TZX", "TR", "Trabzon Airport"),
 
             // V
+            new Airport("VAN", "VAN", "TR", "Van Airport"),
             new Airport("VCE", "VCE", "IT", "Marco Polo International"),
             new Airport("VDA", "ETH", "IL", "Eilat Ovda"),
             new Airport("VIE", "VIE", "AT", "Vienna-Schwechat International"),

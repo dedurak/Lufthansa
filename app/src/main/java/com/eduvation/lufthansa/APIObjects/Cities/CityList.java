@@ -6,6 +6,7 @@ public class CityList {
             // A
             new City("ABZ", "GB", "Aberdeen"),
             new City("ACC", "GH", "Accra"),
+            new City("ADA", "TR", "Adana"),
             new City("ADD", "ET", "Addis Ababa"),
             new City("AGP", "ES", "Malaga"),
             new City("ALA", "KZ", "Almaty"),
@@ -15,6 +16,8 @@ public class CityList {
             new City("AMS", "NL", "Amsterdam"),
             new City("ANC", "IT", "Ancona"),
             new City("ANK", "TR", "Ankara"),
+            new City("ESK", "TR", "Eskisehir"),
+            new City("ASR", "TR", "Kayseri"),
             new City("ATH", "GR", "Athens"),
             new City("ATL", "US", "Atlanta"),
             new City("AUH", "AE", "Abu Dhabi"),
@@ -22,6 +25,7 @@ public class CityList {
             new City("AYT", "TR", "Antalya"),
 
             // B
+            new City("BAH", "BH", "Bahrain"),
             new City("BAK", "AZ", "Baku"),
             new City("BCN", "ES", "Barcelona"),
             new City("BEG", "RS", "Belgrad"),
@@ -32,6 +36,7 @@ public class CityList {
             new City("BIA", "FR", "Bastia"),
             new City("BIO", "ES", "Bilbao"),
             new City("BIQ", "FR", "Biarritz"),
+            new CIty("BJV", "TR", "Bodrum"),
             new City("BKK", "TH", "Bangkok"),
             new City("BLL", "DK", "Billund"),
             new City("BLQ", "IT", "Bologna"),
@@ -66,6 +71,8 @@ public class CityList {
             new City("DEL", "IN", "Delhi"),
             new City("DEN", "US", "Denver"),
             new City("DFW", "US", "Dallas"),
+            new City("DIY", "TR", "Diyarbakir"),
+            new CIty("DLM". "TR", "Dalaman"),
             new City("DOH", "QA", "Doha"),
             new City("DRS", "DE", "Dresden"),
             new City("DTT", "US", "Detroit"),
@@ -75,9 +82,14 @@ public class CityList {
 
             // E
             new City("EAP", "CH", "Basel/Mulhouse"),
+            new City("EBL", "IQ", "Erbil"),
+            new City("ECN", "CY", "Ercan"),
             new City("EDI", "GB", "Edinburgh"),
+            new City("EDO", "TR", "Edremit"),
             new City("EFL", "GR", "Kefallinia"),
+            new City("ERZ", "TR", "Erzurum"),
             new City("ETH", "IL", "Eilat"),
+            new City("EZS", "TR", "Elazig"),
 
             // F
             new City("FAO", "PT", "Faro"),
@@ -95,6 +107,8 @@ public class CityList {
             new City("GRZ", "AT", "Graz"),
             new City("GVA", "CH", "Geneva"),
             new City("GWT", "DE", "Westerland/Sylt"),
+            new City("GZP", "TR", "Alanya"),
+            new CIty("GZT", "TR", "Gaziantep"),
 
             // H
             new City("HAJ", "DE", "Hannover"),
@@ -106,6 +120,7 @@ public class CityList {
             new City("HNL", "US", "Honolulu"),
             new City("HOU", "US", "Houston"),
             new City("HRG", "EG", "Hurghada"),
+            new City("HTY", "TR", "Hatay/Antakya"),
 
             // I
             new City("IBZ", "ES", "Ibiza"),
@@ -123,11 +138,14 @@ public class CityList {
             // K
             new City("KIV", "MD", "Chisinau"),
             new City("KRK", "PL", "Krakow"),
+            new City("KSY", "TR", "Kars"),
             new City("KTW", "PL", "Katowice"),
             new City("KUF", "RU", "Samara"),
             new City("KUL", "MY", "Kuala Lumpur"),
             new City("KUW", "KW", "Kuwait-City"),
             new City("KVA", "GR", "Kavala"),
+            new City("KYA", "TR", "Konya"),
+            new City("KZR", "TR", "Kütahya"),
 
             // L
             new City("LAS", "US", "Las Vegas"),
@@ -153,6 +171,7 @@ public class CityList {
             new City("MIA", "US", "Miami"),
             new City("MIL", "IT", "Milano"),
             new City("MLA", "MT", "Malta"),
+            new City("MLX", "TR", "Malatya"),
             new City("MOW", "RU", "Moscow"),
             new City("MRS", "FR", "Marseille"),
             new City("MRU", "MU", "Mauritius"),
@@ -168,6 +187,7 @@ public class CityList {
             new City("NYC", "US", "New York City"),
 
             // O
+            new City("OGU", "TR", "Ordu-Giresun"),
             new City("OLB", "IT", "Olbia"),
             new City("OPO", "PT", "Porto"),
             new City("ORL", "US", "Orlando"),
@@ -197,6 +217,7 @@ public class CityList {
             new City("RIX", "LV", "Riga"),
             new City("RJK", "HR", "Rijeka"),
             new City("RLG", "DE", "Rostock"),
+            new City("RMF", "EG", "Marsa Alam"),
             new City("ROM", "IT", "Rome"),
             new City("RTM", "NL", "Rotterdam"),
             new City("RUH", "SA", "Riyadh"),
@@ -225,6 +246,7 @@ public class CityList {
             new City("SVG", "NO", "Stavanger"),
             new City("SVQ", "ES", "Sevilla"),
             new City("SXB", "FR", "Strasbourg"),
+            new City("SZF",  "TR", "Samsun"),
             new City("SZG", "AT", "Salzburg"),
 
             // T
@@ -241,8 +263,10 @@ public class CityList {
             new City("TSR", "RO", "Timisoara"),
             new City("TUN", "TN", "Tunis"),
             new City("TYO", "JP", "Tokyo"),
+            new City("TZX", "TR", "Trabzon"),
 
             // V
+            new City("VAN", "TR", "VAN"),
             new City("VCE", "IT", "Venice"),
             new City("VIE", "AT", "Vienna"),
             new City("VLC", "ES", "Valencia"),

@@ -1,6 +1,6 @@
 # Lufthansa Group Flight Information
 
-This is a small android application in production to search for all flights of Lufthansa Group. 
+This is a small android application to search for all flights of Lufthansa Group. 
 The Lufthansa Groups members are Lufthansa, Eurowings, Swiss and Austrian Airlines. 
 
 The App receives the data from the Lufthansa Public API. It is also possible to look for all venture and codeshare flights.
